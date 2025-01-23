@@ -24,6 +24,6 @@ Start at 16/01/2025. Find the example code [here](./handle_inputs/).
 - [x] Capture keyboard events. (22/01/2025 - 20:27:37)
     - Detect specifics keys (e.g arrow keys) and show a message on console.
     - Change the rectangle color depends on the arrow key.
-- [x] Handle mouse interactions.
+- [x] Handle mouse interactions. (22/01/2025 - 21:15:40)
     - Draw a little square where the user make a click on the screen.
     - Move a rectangle following the mouse cursor position.
