@@ -25,5 +25,5 @@ Start at 16/01/2025. Find the example code [here](./handle_inputs/).
     - Detect specifics keys (e.g arrow keys) and show a message on console.
     - Change the rectangle color depends on the arrow key.
 - [ ] Handle mouse interactions.
-    - Draw a circle where the user make a click on the screen.
+    - Draw a little square where the user make a click on the screen.
     - Move a rectangle following the mouse cursor position.
