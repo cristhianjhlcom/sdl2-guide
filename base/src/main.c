@@ -34,7 +34,8 @@ bool initialize_window(void) {
         return false;
     }
 
-    window = SDL_CreateWindow("First Game", 100, 100, SCREEN_WIDTH, SCREEN_HEIGHT, 0);
+    window = SDL_CreateWindow("First Game", 100, 100, SCREEN_WIDTH,
+                              SCREEN_HEIGHT, 0);
     if (window == NULL) {
         printf("SDL Window Creation failed %s.\n", SDL_GetError());
         return false;
@@ -55,11 +56,11 @@ void proccess_input(void) {
 
     while (SDL_PollEvent(&event)) {
         switch (event.type) {
-            case SDL_QUIT:
-                is_running = false;
-                break;
-            default:
-                break;
+        case SDL_QUIT:
+            is_running = false;
+            break;
+        default:
+            break;
         }
     }
 }
