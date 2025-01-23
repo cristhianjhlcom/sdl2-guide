@@ -16,7 +16,6 @@ ifeq ($(DEBUG), 1)
 else
     CC_FLAGS += -O2
     OUTPUT = app
-
 endif
 
 CC_COMPILER = $(CC) $(CC_FLAGS)

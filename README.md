@@ -21,7 +21,7 @@ Start at 16/01/2025. Find the example code [here](./create_window/).
 
 Start at 16/01/2025. Find the example code [here](./handle_inputs/).
 
-- [ ] Capture keyboard events.
+- [x] Capture keyboard events. (22/01/2025 - 20:27:37)
     - Detect specifics keys (e.g arrow keys) and show a message on console.
     - Change the rectangle color depends on the arrow key.
 - [ ] Handle mouse interactions.

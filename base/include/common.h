@@ -9,6 +9,7 @@
 #include <SDL2/SDL_stdinc.h>
 #include <SDL2/SDL_timer.h>
 #include <SDL2/SDL_video.h>
+
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
