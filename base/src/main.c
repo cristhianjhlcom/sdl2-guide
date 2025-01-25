@@ -1,6 +1,7 @@
 #include "common.h"
 
 bool initialize_window(void);
+
 void proccess_input(void);
 void render(void);
 void setup(void);
@@ -34,7 +35,21 @@ bool initialize_window(void) {
         return false;
     }
 
-    window = SDL_CreateWindow("First Game", 100, 100, SCREEN_WIDTH,
+    SDL_Rect display_bounds;
+
+    if (SDL_GetDisplayBounds(0, &display_bounds) != 0) {
+        SDL_Log("Could not get display bounds %s.\n", SDL_GetError());
+        exit(1);
+    }
+
+    // int window_x = display_bounds.x + (display_bounds.w - SCREEN_WIDTH) / 2;
+    // int window_y = display_bounds.y + (display_bounds.h - SCREEN_HEIGHT) / 2;
+    int window_x = display_bounds.x + display_bounds.w;
+    int window_y = display_bounds.y + display_bounds.h;
+
+    printf("window x %d window y %d\n", window_x, window_y);
+
+    window = SDL_CreateWindow("First Game", window_x, window_y, SCREEN_WIDTH,
                               SCREEN_HEIGHT, 0);
     if (window == NULL) {
         printf("SDL Window Creation failed %s.\n", SDL_GetError());
