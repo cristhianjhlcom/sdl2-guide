@@ -23,7 +23,7 @@ CC_COMPILER = $(CC) $(CC_FLAGS)
 CC_SOURCES = $(wildcard $(SOURCE_DIR)/*.c)
 CC_OBJECTS = $(patsubst $(SOURCE_DIR)/%.c, $(BUILD_DIR)/%.o, $(CC_SOURCES))
 
-all: create build
+all: clean create build run
 
 create:
 	@mkdir -p build
