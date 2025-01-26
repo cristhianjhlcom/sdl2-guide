@@ -1,0 +1,22 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/x86_64-linux-gnu-gcc-10",
+      "-Wall",
+      "-Wextra",
+      "-Wpedantic",
+      "-std=c11",
+      "-I",
+      "include",
+      "-g",
+      "-DDEBUG",
+      "-c",
+      "src/main.c",
+      "-o",
+      "build/main.o"
+    ],
+    "directory": "/home/cristhianjhl/learn/c/games/basics/base",
+    "file": "/home/cristhianjhl/learn/c/games/basics/base/src/main.c",
+    "output": "/home/cristhianjhl/learn/c/games/basics/base/build/main.o"
+  }
+]
