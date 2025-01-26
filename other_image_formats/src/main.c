@@ -1,6 +1,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_error.h>
 #include <SDL2/SDL_events.h>
+#include <SDL2/SDL_image.h>
 #include <SDL2/SDL_keycode.h>
 #include <SDL2/SDL_pixels.h>
 #include <SDL2/SDL_rect.h>
@@ -160,6 +161,13 @@ bool init(void) {
         return false;
     }
 
+    // Initialize PNG image resources.
+    int image_flags = IMG_INIT_PNG;
+    if (!(IMG_Init(image_flags) & image_flags)) {
+        printf("SDL_image initalization failed %s.\n", IMG_GetError());
+        return false;
+    }
+
     // Get window surface.
     // This is not recommended for video games.
     // Use SDL_CreateRenderer instead.
@@ -173,7 +181,7 @@ bool load_media(void) {
     // Take a sources image and copy onto a surface screen.
     // Load default surfaces.
     key_press_surfaces[KEY_PRESS_SURFACE_DEFAULT] =
-        load_surface("graphics/press.bmp");
+        load_surface("graphics/loaded.png");
     if (key_press_surfaces[KEY_PRESS_SURFACE_DEFAULT] == NULL) {
         printf("Load default image failed.\n");
         return false;
@@ -213,7 +221,7 @@ SDL_Surface *load_surface(const char *path) {
     // The final optimized image.
     SDL_Surface *optimized_surface = NULL;
     // Load image at specified path.
-    SDL_Surface *loaded_surface = SDL_LoadBMP(path);
+    SDL_Surface *loaded_surface = IMG_Load(path);
     if (loaded_surface == NULL) {
         printf("Unable to load image %s - %s.\n", path, SDL_GetError());
         return NULL;
