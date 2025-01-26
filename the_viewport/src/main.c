@@ -20,6 +20,8 @@ const int SCREEN_HEIGHT = 480;
 bool init(void);
 // Load medias resources.
 bool load_media(void);
+// Load individuals image texture.
+SDL_Texture *load_texture(const char *path);
 // Free resources and shuts down SDL.
 void cleanup(void);
 
@@ -27,6 +29,8 @@ void cleanup(void);
 SDL_Window *window = NULL;
 // The window renderer.
 SDL_Renderer *renderer = NULL;
+// Current displayed texture.
+SDL_Texture *texture = NULL;
 
 int main(void) {
     if (!init()) {
@@ -73,6 +77,33 @@ int main(void) {
         // Fills the screen we the color that we define on init function
         // - SDL_SetRenderDrawColor
         SDL_RenderClear(renderer);
+
+        // Top left corner viewport.
+        SDL_Rect top_left_viewport;
+        top_left_viewport.x = 0;
+        top_left_viewport.y = 0;
+        top_left_viewport.w = SCREEN_WIDTH / 2;
+        top_left_viewport.h = SCREEN_HEIGHT / 2;
+        SDL_RenderSetViewport(renderer, &top_left_viewport);
+        SDL_RenderCopy(renderer, texture, NULL, NULL);
+
+        // Top right corner viewport.
+        SDL_Rect top_right_viewport;
+        top_right_viewport.x = SCREEN_WIDTH / 2;
+        top_right_viewport.y = 0;
+        top_right_viewport.w = SCREEN_WIDTH / 2;
+        top_right_viewport.h = SCREEN_HEIGHT / 2;
+        SDL_RenderSetViewport(renderer, &top_right_viewport);
+        SDL_RenderCopy(renderer, texture, NULL, NULL);
+
+        // Bottom viewport.
+        SDL_Rect bottom_viewport;
+        bottom_viewport.x = 0;
+        bottom_viewport.y = SCREEN_HEIGHT / 2;
+        bottom_viewport.w = SCREEN_WIDTH;
+        bottom_viewport.h = SCREEN_HEIGHT / 2;
+        SDL_RenderSetViewport(renderer, &bottom_viewport);
+        SDL_RenderCopy(renderer, texture, NULL, NULL);
 
         // Now we have to user RenderPresent because we are not using surface
         // anymore then update screen.
@@ -130,7 +161,42 @@ bool init(void) {
     return true;
 }
 
-bool load_media(void) { return true; }
+bool load_media(void) {
+    // Load PNG image resources.
+    texture = load_texture("graphics/viewport.png");
+    if (texture == NULL) {
+        printf("Load texture image failed.\n");
+        return false;
+    }
+    return true;
+}
+
+SDL_Texture *load_texture(const char *path) {
+    // The final texture.
+    SDL_Texture *new_texture = NULL;
+
+    // Load image at specified path.
+    SDL_Surface *loaded_surface = IMG_Load(path);
+    if (loaded_surface == NULL) {
+        printf("Unabled to load image %s SDL_Error %s.\n", path,
+               SDL_GetError());
+        return NULL;
+    }
+
+    // Create texture from surface pixels.
+    new_texture = SDL_CreateTextureFromSurface(renderer, loaded_surface);
+    if (loaded_surface == NULL) {
+        printf("Unabled create texture from %s SDL_Error %s.\n", path,
+               SDL_GetError());
+        return NULL;
+    }
+
+    // Get rid of old loaded texture.
+    SDL_FreeSurface(loaded_surface);
+
+    return new_texture;
+}
+
 
 void cleanup(void) {
     // Destroy window.
