@@ -56,19 +56,53 @@ int main(void) {
         // Keep proccesing the event queue until it is empty.
         while (SDL_PollEvent(&event)) {
             switch (event.type) {
-            // User requests quit the game.
-            case SDL_QUIT:
-                quit = true;
-                break;
-            default:
-                break;
+                // User requests quit the game.
+                case SDL_QUIT:
+                    quit = true;
+                    break;
+                default:
+                    break;
             }
         }
 
+        // Set clearing white color on every frame.
+        // Instead of set once on the init function.
+        // Explained later!
+        SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
         // Clear screen.
         // Fills the screen we the color that we define on init function
         // - SDL_SetRenderDrawColor
         SDL_RenderClear(renderer);
+
+        // Render red filled square.
+        SDL_Rect fill_rect;
+        fill_rect.x = SCREEN_WIDTH / 4;
+        fill_rect.y = SCREEN_HEIGHT / 4;
+        fill_rect.w = SCREEN_WIDTH / 2;
+        fill_rect.h = SCREEN_HEIGHT / 2;
+        SDL_SetRenderDrawColor(renderer, 0xFF, 0x00, 0x00, 0xFF);
+        SDL_RenderFillRect(renderer, &fill_rect);
+
+        // Render green outlined square.
+        SDL_Rect outline_rect;
+        outline_rect.x = SCREEN_WIDTH / 6;
+        outline_rect.y = SCREEN_HEIGHT / 6;
+        outline_rect.w = SCREEN_WIDTH * 2 / 3;
+        outline_rect.h = SCREEN_HEIGHT * 2 / 3;
+        SDL_SetRenderDrawColor(renderer, 0x00, 0xFF, 0x00, 0xFF);
+        SDL_RenderDrawRect(renderer, &outline_rect);
+
+        // Draw blue horizontal line.
+        SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0xFF, 0xFF);
+        SDL_RenderDrawLine(renderer, 0, SCREEN_HEIGHT / 2, SCREEN_WIDTH,
+                           SCREEN_HEIGHT / 2);
+
+        // Draw vertical line of yellows dots.
+        SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0x00, 0xFF);
+        for (int idx = 0; idx < SCREEN_HEIGHT; idx += 4) {
+            SDL_RenderDrawPoint(renderer, SCREEN_WIDTH / 2, idx);
+        }
+
         // Now we have to user RenderPresent because we are not using surface
         // anymore then update screen.
         SDL_RenderPresent(renderer);
@@ -113,9 +147,6 @@ bool init(void) {
         printf("Renderer creation failed %s.\n", SDL_GetError());
         return false;
     }
-
-    // Initialize renderer color.
-    SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 
     // Initialize PNG image resources.
     int image_flags = IMG_INIT_PNG;
