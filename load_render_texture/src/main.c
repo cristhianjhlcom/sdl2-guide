@@ -5,6 +5,7 @@
 #include <SDL2/SDL_keycode.h>
 #include <SDL2/SDL_pixels.h>
 #include <SDL2/SDL_rect.h>
+#include <SDL2/SDL_render.h>
 #include <SDL2/SDL_stdinc.h>
 #include <SDL2/SDL_surface.h>
 #include <SDL2/SDL_video.h>
@@ -19,29 +20,17 @@ const int SCREEN_HEIGHT = 480;
 bool init(void);
 // Load medias resources.
 bool load_media(void);
-// Load individuals image resources.
-SDL_Surface *load_surface(const char *path);
+// Load individuals image as texture.
+SDL_Texture *load_texture(const char *path);
 // Free resources and shuts down SDL.
 void cleanup(void);
 
-// Key press surface constants.
-// 0...5
-enum key_press_surfaces {
-    KEY_PRESS_SURFACE_DEFAULT,
-    KEY_PRESS_SURFACE_UP,
-    KEY_PRESS_SURFACE_DOWN,
-    KEY_PRESS_SURFACE_LEFT,
-    KEY_PRESS_SURFACE_RIGHT,
-    KEY_PRESS_SURFACE_TOTAL,
-};
 // The window will be rendering to.
 SDL_Window *window = NULL;
-// The surface contained by the window.
-SDL_Surface *screen_surface = NULL;
-// The images that correspond to a keypress.
-SDL_Surface *key_press_surfaces[KEY_PRESS_SURFACE_TOTAL];
-// Current displayed image.
-SDL_Surface *stretched_surface = NULL;
+// The window renderer.
+SDL_Renderer *renderer = NULL;
+// Current displayed texture.
+SDL_Texture *texture = NULL;
 
 int main(void) {
     if (!init()) {
@@ -71,9 +60,6 @@ int main(void) {
     // - Joy button press. (SDL_JoyButtonEvent)
     SDL_Event event;
 
-    // Set default current surface.
-    stretched_surface = key_press_surfaces[KEY_PRESS_SURFACE_DEFAULT];
-
     // This is the game loop.
     // The core of any game application.
     while (quit == false) {
@@ -86,45 +72,21 @@ int main(void) {
             case SDL_QUIT:
                 quit = true;
                 break;
-            case SDL_KEYDOWN:
-                switch (event.key.keysym.sym) {
-                case SDLK_UP:
-                    stretched_surface =
-                        key_press_surfaces[KEY_PRESS_SURFACE_UP];
-                    break;
-                case SDLK_DOWN:
-                    stretched_surface =
-                        key_press_surfaces[KEY_PRESS_SURFACE_DOWN];
-                    break;
-                case SDLK_RIGHT:
-                    stretched_surface =
-                        key_press_surfaces[KEY_PRESS_SURFACE_RIGHT];
-                    break;
-                case SDLK_LEFT:
-                    stretched_surface =
-                        key_press_surfaces[KEY_PRESS_SURFACE_LEFT];
-                    break;
-                default:
-                    stretched_surface =
-                        key_press_surfaces[KEY_PRESS_SURFACE_DEFAULT];
-                    break;
-                }
             default:
                 break;
             }
         }
 
-        SDL_Rect stretch_rect;
-        stretch_rect.x = 0;
-        stretch_rect.y = 0;
-        stretch_rect.w = SCREEN_WIDTH;
-        stretch_rect.h = SCREEN_HEIGHT;
-        // After the keys have been handled and the surface has been set we blit
-        // the selected surface on the screen. We render it in the back buffer.
-        // SDL_BlitSurface(stretched_surface, NULL, screen_surface, NULL);
-        SDL_BlitScaled(stretched_surface, NULL, screen_surface, &stretch_rect);
-        // Now we set the loaded surface on the front buffer.
-        SDL_UpdateWindowSurface(window);
+        // Clear screen.
+        // Fills the screen we the color that we define on init function
+        // - SDL_SetRenderDrawColor
+        SDL_RenderClear(renderer);
+        // With the screen cleared we have to render our texture.
+        // Render texture to screen.
+        SDL_RenderCopy(renderer, texture, NULL, NULL);
+        // Now we have to user RenderPresent because we are not using surface
+        // anymore then update screen.
+        SDL_RenderPresent(renderer);
     }
 
     cleanup();
@@ -161,6 +123,15 @@ bool init(void) {
         return false;
     }
 
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    if (renderer == NULL) {
+        printf("Renderer creation failed %s.\n", SDL_GetError());
+        return false;
+    }
+
+    // Initialize renderer color.
+    SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+
     // Initialize PNG image resources.
     int image_flags = IMG_INIT_PNG;
     if (!(IMG_Init(image_flags) & image_flags)) {
@@ -168,91 +139,56 @@ bool init(void) {
         return false;
     }
 
-    // Get window surface.
-    // This is not recommended for video games.
-    // Use SDL_CreateRenderer instead.
-    // - Give more functionality for work with games.
-    screen_surface = SDL_GetWindowSurface(window);
-
     return true;
 }
 
 bool load_media(void) {
-    // Take a sources image and copy onto a surface screen.
-    // Load default surfaces.
-    key_press_surfaces[KEY_PRESS_SURFACE_DEFAULT] =
-        load_surface("graphics/loaded.png");
-    if (key_press_surfaces[KEY_PRESS_SURFACE_DEFAULT] == NULL) {
-        printf("Load default image failed.\n");
-        return false;
-    }
-
-    // Load up surfaces.
-    key_press_surfaces[KEY_PRESS_SURFACE_UP] = load_surface("graphics/up.bmp");
-    if (key_press_surfaces[KEY_PRESS_SURFACE_UP] == NULL) {
-        printf("Load up image failed.\n");
-        return false;
-    }
-    // Load down surfaces.
-    key_press_surfaces[KEY_PRESS_SURFACE_DOWN] =
-        load_surface("graphics/down.bmp");
-    if (key_press_surfaces[KEY_PRESS_SURFACE_DOWN] == NULL) {
-        printf("Load down image failed.\n");
-        return false;
-    }
-    // Load left surfaces.
-    key_press_surfaces[KEY_PRESS_SURFACE_LEFT] =
-        load_surface("graphics/left.bmp");
-    if (key_press_surfaces[KEY_PRESS_SURFACE_LEFT] == NULL) {
-        printf("Load left image failed.\n");
-        return false;
-    }
-    // Load right surfaces.
-    key_press_surfaces[KEY_PRESS_SURFACE_RIGHT] =
-        load_surface("graphics/right.bmp");
-    if (key_press_surfaces[KEY_PRESS_SURFACE_RIGHT] == NULL) {
-        printf("Load right image failed.\n");
+    // Load PNG image resources.
+    texture = load_texture("graphics/texture.png");
+    if (texture == NULL) {
+        printf("Load texture image failed.\n");
         return false;
     }
     return true;
 }
 
-SDL_Surface *load_surface(const char *path) {
-    // The final optimized image.
-    SDL_Surface *optimized_surface = NULL;
+SDL_Texture *load_texture(const char *path) {
+    // The final texture.
+    SDL_Texture *new_texture = NULL;
+
     // Load image at specified path.
     SDL_Surface *loaded_surface = IMG_Load(path);
     if (loaded_surface == NULL) {
-        printf("Unable to load image %s - %s.\n", path, SDL_GetError());
+        printf("Unabled to load image %s SDL_Error %s.\n", path,
+               SDL_GetError());
         return NULL;
     }
 
-    // Convert surface to screen format.
-    optimized_surface =
-        SDL_ConvertSurface(loaded_surface, screen_surface->format, 0);
-    if (optimized_surface == NULL) {
-        printf("Unable to optimized image %s - %s.\n", path, SDL_GetError());
+    // Create texture from surface pixels.
+    new_texture = SDL_CreateTextureFromSurface(renderer, loaded_surface);
+    if (loaded_surface == NULL) {
+        printf("Unabled create texture from %s SDL_Error %s.\n", path,
+               SDL_GetError());
         return NULL;
     }
 
-    // Get rid of old load surface.
+    // Get rid of old loaded texture.
     SDL_FreeSurface(loaded_surface);
 
-    // After convert the image to an optimized one.
-    // Return it.
-    return optimized_surface;
+    return new_texture;
 }
 
 void cleanup(void) {
-    // #IMPORTANT. Always set your pointers to NULL.
-    // #IMPORTANT. Always take care of undefined behaviors.
-    // Deallocate surface.
-    SDL_FreeSurface(screen_surface);
-
+    // Free loaded image.
+    SDL_DestroyTexture(texture);
+    texture = NULL;
     // Destroy window.
+    SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
+    renderer = NULL;
     window = NULL;
 
     // Quit SDL subsystems.
+    IMG_Quit();
     SDL_Quit();
 }
