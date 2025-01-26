@@ -43,14 +43,6 @@ int main(void) {
         exit(1);
     }
 
-    // After we draw the image we have to update the screen.
-    // Update the surface.
-    // Most of draw system use double buffer (front and back).
-    // While we're drawing on front buffer the back buffer is rendering.
-    // You don't call this function after every blit.
-    // Only after all blits for the current frame are done.
-    SDL_UpdateWindowSurface(window);
-
     // Hack window to stay up.
     bool quit = false;
 
