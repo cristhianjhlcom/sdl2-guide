@@ -4,7 +4,7 @@ INCLUDE_DIR = include
 SOURCE_DIR = src
 BUILD_DIR = build
 
-CC_STD = c11
+CC_STD = c2x
 CC = gcc
 CC_WARNINGS = -Wall -Wextra -Wpedantic
 CC_FLAGS = $(CC_WARNINGS) -std=$(CC_STD) -I $(INCLUDE_DIR)

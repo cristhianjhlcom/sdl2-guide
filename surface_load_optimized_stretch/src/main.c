@@ -40,7 +40,7 @@ SDL_Surface *screen_surface = NULL;
 // The images that correspond to a keypress.
 SDL_Surface *key_press_surfaces[KEY_PRESS_SURFACE_TOTAL];
 // Current displayed image.
-SDL_Surface *current_surface = NULL;
+SDL_Surface *stretched_surface = NULL;
 
 int main(void) {
     if (!init()) {
@@ -71,7 +71,7 @@ int main(void) {
     SDL_Event event;
 
     // Set default current surface.
-    current_surface = key_press_surfaces[KEY_PRESS_SURFACE_DEFAULT];
+    stretched_surface = key_press_surfaces[KEY_PRESS_SURFACE_DEFAULT];
 
     // This is the game loop.
     // The core of any game application.
@@ -88,22 +88,23 @@ int main(void) {
             case SDL_KEYDOWN:
                 switch (event.key.keysym.sym) {
                 case SDLK_UP:
-                    current_surface = key_press_surfaces[KEY_PRESS_SURFACE_UP];
+                    stretched_surface =
+                        key_press_surfaces[KEY_PRESS_SURFACE_UP];
                     break;
                 case SDLK_DOWN:
-                    current_surface =
+                    stretched_surface =
                         key_press_surfaces[KEY_PRESS_SURFACE_DOWN];
                     break;
                 case SDLK_RIGHT:
-                    current_surface =
+                    stretched_surface =
                         key_press_surfaces[KEY_PRESS_SURFACE_RIGHT];
                     break;
                 case SDLK_LEFT:
-                    current_surface =
+                    stretched_surface =
                         key_press_surfaces[KEY_PRESS_SURFACE_LEFT];
                     break;
                 default:
-                    current_surface =
+                    stretched_surface =
                         key_press_surfaces[KEY_PRESS_SURFACE_DEFAULT];
                     break;
                 }
@@ -112,9 +113,15 @@ int main(void) {
             }
         }
 
+        SDL_Rect stretch_rect;
+        stretch_rect.x = 0;
+        stretch_rect.y = 0;
+        stretch_rect.w = SCREEN_WIDTH;
+        stretch_rect.h = SCREEN_HEIGHT;
         // After the keys have been handled and the surface has been set we blit
         // the selected surface on the screen. We render it in the back buffer.
-        SDL_BlitSurface(current_surface, NULL, screen_surface, NULL);
+        // SDL_BlitSurface(stretched_surface, NULL, screen_surface, NULL);
+        SDL_BlitScaled(stretched_surface, NULL, screen_surface, &stretch_rect);
         // Now we set the loaded surface on the front buffer.
         SDL_UpdateWindowSurface(window);
     }
@@ -203,13 +210,29 @@ bool load_media(void) {
 }
 
 SDL_Surface *load_surface(const char *path) {
+    // The final optimized image.
+    SDL_Surface *optimized_surface = NULL;
+    // Load image at specified path.
     SDL_Surface *loaded_surface = SDL_LoadBMP(path);
     if (loaded_surface == NULL) {
         printf("Unable to load image %s - %s.\n", path, SDL_GetError());
         return NULL;
     }
 
-    return loaded_surface;
+    // Convert surface to screen format.
+    optimized_surface =
+        SDL_ConvertSurface(loaded_surface, screen_surface->format, 0);
+    if (optimized_surface == NULL) {
+        printf("Unable to optimized image %s - %s.\n", path, SDL_GetError());
+        return NULL;
+    }
+
+    // Get rid of old load surface.
+    SDL_FreeSurface(loaded_surface);
+
+    // After convert the image to an optimized one.
+    // Return it.
+    return optimized_surface;
 }
 
 void cleanup(void) {
