@@ -1,6 +1,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_error.h>
 #include <SDL2/SDL_events.h>
+#include <SDL2/SDL_keycode.h>
 #include <SDL2/SDL_pixels.h>
 #include <SDL2/SDL_rect.h>
 #include <SDL2/SDL_stdinc.h>
@@ -13,16 +14,33 @@
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 
+// Start up SDL and creates window.
+bool init(void);
+// Load medias resources.
+bool load_media(void);
+// Load individuals image resources.
+SDL_Surface *load_surface(const char *path);
+// Free resources and shuts down SDL.
+void cleanup(void);
+
+// Key press surface constants.
+// 0...5
+enum key_press_surfaces {
+    KEY_PRESS_SURFACE_DEFAULT,
+    KEY_PRESS_SURFACE_UP,
+    KEY_PRESS_SURFACE_DOWN,
+    KEY_PRESS_SURFACE_LEFT,
+    KEY_PRESS_SURFACE_RIGHT,
+    KEY_PRESS_SURFACE_TOTAL,
+};
 // The window will be rendering to.
 SDL_Window *window = NULL;
 // The surface contained by the window.
 SDL_Surface *screen_surface = NULL;
-// The image we will load and show on screen.
-SDL_Surface *hello_world_image = NULL;
-
-bool init(void);
-bool load_media(void);
-void cleanup(void);
+// The images that correspond to a keypress.
+SDL_Surface *key_press_surfaces[KEY_PRESS_SURFACE_TOTAL];
+// Current displayed image.
+SDL_Surface *current_surface = NULL;
 
 int main(void) {
     if (!init()) {
@@ -34,9 +52,6 @@ int main(void) {
         printf("Load image failed!\n");
         exit(1);
     }
-
-    // Take a sources image and copy onto a surface screen.
-    SDL_BlitSurface(hello_world_image, NULL, screen_surface, NULL);
 
     // After we draw the image we have to update the screen.
     // Update the surface.
@@ -55,6 +70,9 @@ int main(void) {
     // - Joy button press. (SDL_JoyButtonEvent)
     SDL_Event event;
 
+    // Set default current surface.
+    current_surface = key_press_surfaces[KEY_PRESS_SURFACE_DEFAULT];
+
     // This is the game loop.
     // The core of any game application.
     while (quit == false) {
@@ -62,11 +80,43 @@ int main(void) {
         // Handle events on queue.
         // Keep proccesing the event queue until it is empty.
         while (SDL_PollEvent(&event)) {
+            switch (event.type) {
             // User requests quit the game.
-            if (event.type == SDL_QUIT) {
+            case SDL_QUIT:
                 quit = true;
+                break;
+            case SDL_KEYDOWN:
+                switch (event.key.keysym.sym) {
+                case SDLK_UP:
+                    current_surface = key_press_surfaces[KEY_PRESS_SURFACE_UP];
+                    break;
+                case SDLK_DOWN:
+                    current_surface =
+                        key_press_surfaces[KEY_PRESS_SURFACE_DOWN];
+                    break;
+                case SDLK_RIGHT:
+                    current_surface =
+                        key_press_surfaces[KEY_PRESS_SURFACE_RIGHT];
+                    break;
+                case SDLK_LEFT:
+                    current_surface =
+                        key_press_surfaces[KEY_PRESS_SURFACE_LEFT];
+                    break;
+                default:
+                    current_surface =
+                        key_press_surfaces[KEY_PRESS_SURFACE_DEFAULT];
+                    break;
+                }
+            default:
+                break;
             }
         }
+
+        // After the keys have been handled and the surface has been set we blit
+        // the selected surface on the screen. We render it in the back buffer.
+        SDL_BlitSurface(current_surface, NULL, screen_surface, NULL);
+        // Now we set the loaded surface on the front buffer.
+        SDL_UpdateWindowSurface(window);
     }
 
     cleanup();
@@ -113,17 +163,53 @@ bool init(void) {
 }
 
 bool load_media(void) {
-    const char *path = "graphics/hello_world.bmp";
-    // Take a url path and returns and loaded surface.
-    hello_world_image = SDL_LoadBMP(path);
-
-    // Must check if the function returns NULL.
-    if (hello_world_image == NULL) {
-        printf("Load image failed %s - %s.\n", path, SDL_GetError());
+    // Take a sources image and copy onto a surface screen.
+    // Load default surfaces.
+    key_press_surfaces[KEY_PRESS_SURFACE_DEFAULT] =
+        load_surface("graphics/press.bmp");
+    if (key_press_surfaces[KEY_PRESS_SURFACE_DEFAULT] == NULL) {
+        printf("Load default image failed.\n");
         return false;
     }
 
+    // Load up surfaces.
+    key_press_surfaces[KEY_PRESS_SURFACE_UP] = load_surface("graphics/up.bmp");
+    if (key_press_surfaces[KEY_PRESS_SURFACE_UP] == NULL) {
+        printf("Load up image failed.\n");
+        return false;
+    }
+    // Load down surfaces.
+    key_press_surfaces[KEY_PRESS_SURFACE_DOWN] =
+        load_surface("graphics/down.bmp");
+    if (key_press_surfaces[KEY_PRESS_SURFACE_DOWN] == NULL) {
+        printf("Load down image failed.\n");
+        return false;
+    }
+    // Load left surfaces.
+    key_press_surfaces[KEY_PRESS_SURFACE_LEFT] =
+        load_surface("graphics/left.bmp");
+    if (key_press_surfaces[KEY_PRESS_SURFACE_LEFT] == NULL) {
+        printf("Load left image failed.\n");
+        return false;
+    }
+    // Load right surfaces.
+    key_press_surfaces[KEY_PRESS_SURFACE_RIGHT] =
+        load_surface("graphics/right.bmp");
+    if (key_press_surfaces[KEY_PRESS_SURFACE_RIGHT] == NULL) {
+        printf("Load right image failed.\n");
+        return false;
+    }
     return true;
+}
+
+SDL_Surface *load_surface(const char *path) {
+    SDL_Surface *loaded_surface = SDL_LoadBMP(path);
+    if (loaded_surface == NULL) {
+        printf("Unable to load image %s - %s.\n", path, SDL_GetError());
+        return NULL;
+    }
+
+    return loaded_surface;
 }
 
 void cleanup(void) {
@@ -131,7 +217,6 @@ void cleanup(void) {
     // #IMPORTANT. Always take care of undefined behaviors.
     // Deallocate surface.
     SDL_FreeSurface(screen_surface);
-    hello_world_image = NULL;
 
     // Destroy window.
     SDL_DestroyWindow(window);
