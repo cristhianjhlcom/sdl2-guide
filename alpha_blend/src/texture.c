@@ -1,11 +1,13 @@
 #include "common.h"
 
+// Initializes variables.
 void texture_init(texture_t *t) {
     t->w = 0;
     t->h = 0;
     t->texture = NULL;
 }
 
+// Deallocates texture.
 void texture_free(texture_t *t) {
     if (t->texture == NULL)
         return;
@@ -18,6 +20,7 @@ void texture_free(texture_t *t) {
     }
 }
 
+// Renders texture at given point.
 void texture_render(texture_t *t, int x, int y, SDL_Rect *clip) {
     // Set rendering space and render to screen.
     SDL_Rect dest;
@@ -36,10 +39,22 @@ void texture_render(texture_t *t, int x, int y, SDL_Rect *clip) {
     SDL_RenderCopy(game_state.renderer, t->texture, clip, &dest);
 }
 
+// Set blending.
+void texture_set_blend_mode(texture_t *t, SDL_BlendMode blending) {
+    SDL_SetTextureBlendMode(t->texture, blending);
+}
+
+// Set alpha modulation.
+void texture_set_alpha(texture_t *t, Uint8 alpha) {
+    SDL_SetTextureAlphaMod(t->texture, alpha);
+}
+
+// Set color modulation.
 void texture_set_color(texture_t *t, Uint8 red, Uint8 green, Uint8 blue) {
     SDL_SetTextureColorMod(t->texture, red, green, blue);
 }
 
+// Loads image at specified path.
 bool texture_load_from_image(texture_t *t, const char *path) {
     texture_free(t);
 
@@ -81,5 +96,7 @@ bool texture_load_from_image(texture_t *t, const char *path) {
 // e.g We define two variables on our texture.h
 // - extern texture_t sprite_sheet_texture;
 // - extern SDL_Rect sprite_clips[4];
-// Now we have to define on our texture.c this make the variable available on other modules.
+// Now we have to define on our texture.c this make the variable available on
+// other modules.
 texture_t modulated_texture;
+texture_t background_texture;

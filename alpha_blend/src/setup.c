@@ -57,8 +57,15 @@ bool init(void) {
 
 bool load_media(void) {
     // Load scene image resources.
-    if (!texture_load_from_image(&modulated_texture, "graphics/colors.png")) {
-        printf("Load sprite sheet texture image failed.\n");
+    if (!texture_load_from_image(&modulated_texture, "graphics/fadeout.png")) {
+        printf("Load fadeout texture image failed.\n");
+        return false;
+    }
+
+    texture_set_blend_mode(&modulated_texture, SDL_BLENDMODE_BLEND);
+
+    if (!texture_load_from_image(&background_texture, "graphics/fadein.png")) {
+        printf("Load fadeout texture image failed.\n");
         return false;
     }
 

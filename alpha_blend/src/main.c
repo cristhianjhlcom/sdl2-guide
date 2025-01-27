@@ -1,4 +1,5 @@
 #include "common.h"
+#include "texture.h"
 
 game_state_t game_state;
 
@@ -11,6 +12,7 @@ int main(void) {
     }
 
     texture_init(&modulated_texture);
+    texture_init(&background_texture);
 
     if (!load_media()) {
         printf("Load media image failed %s\n", SDL_GetError());
@@ -26,9 +28,7 @@ int main(void) {
     SDL_Event event;
 
     // Modulation components.
-    Uint8 r = 255;
-    Uint8 g = 255;
-    Uint8 b = 255;
+    Uint8 a = 255;
 
     // This is the game loop.
     // The core of any game application.
@@ -44,24 +44,22 @@ int main(void) {
                     break;
                 case SDL_KEYDOWN:
                     switch (event.key.keysym.sym) {
-                        case SDLK_q:
-                            r += 32;
-                            break;
+                        // Increase alpha on w.
                         case SDLK_w:
-                            g += 32;
-                            break;
-                        case SDLK_e:
-                            b += 32;
-                            break;
-                        case SDLK_a:
-                            r -= 32;
-                            break;
+                            // Cap if over 255.
+                            if (a + 32 > 255) {
+                                a = 255;
+                            } else {
+                                a += 32;
+                            }
+                        // Decrease alpha on s.
                         case SDLK_s:
-                            g -= 32;
-                            break;
-                        case SDLK_d:
-                            b -= 32;
-                            break;
+                            // Cap if below 0.
+                            if (a - 32 < 0) {
+                                a = 0;
+                            } else {
+                                a -= 32;
+                            }
                         default:
                             break;
                     }
@@ -80,7 +78,8 @@ int main(void) {
         SDL_RenderClear(game_state.renderer);
 
         // Blit here.
-        texture_set_color(&modulated_texture, r, g, b);
+        texture_render(&background_texture, 0, 0, NULL);
+        texture_set_alpha(&modulated_texture, a);
         texture_render(&modulated_texture, 0, 0, NULL);
 
         // Now we have to user RenderPresent because we are not using

@@ -15,8 +15,48 @@
       "-o",
       "build/main.o"
     ],
-    "directory": "/home/cristhianjhl/learn/c/games/basics/color_modulation",
-    "file": "/home/cristhianjhl/learn/c/games/basics/color_modulation/src/main.c",
-    "output": "/home/cristhianjhl/learn/c/games/basics/color_modulation/build/main.o"
+    "directory": "/home/cristhianjhl/learn/c/games/basics/alpha_blend",
+    "file": "/home/cristhianjhl/learn/c/games/basics/alpha_blend/src/main.c",
+    "output": "/home/cristhianjhl/learn/c/games/basics/alpha_blend/build/main.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/x86_64-linux-gnu-gcc-10",
+      "-Wall",
+      "-Wextra",
+      "-Wpedantic",
+      "-std=c2x",
+      "-I",
+      "include",
+      "-g",
+      "-DDEBUG",
+      "-c",
+      "src/setup.c",
+      "-o",
+      "build/setup.o"
+    ],
+    "directory": "/home/cristhianjhl/learn/c/games/basics/alpha_blend",
+    "file": "/home/cristhianjhl/learn/c/games/basics/alpha_blend/src/setup.c",
+    "output": "/home/cristhianjhl/learn/c/games/basics/alpha_blend/build/setup.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/x86_64-linux-gnu-gcc-10",
+      "-Wall",
+      "-Wextra",
+      "-Wpedantic",
+      "-std=c2x",
+      "-I",
+      "include",
+      "-g",
+      "-DDEBUG",
+      "-c",
+      "src/texture.c",
+      "-o",
+      "build/texture.o"
+    ],
+    "directory": "/home/cristhianjhl/learn/c/games/basics/alpha_blend",
+    "file": "/home/cristhianjhl/learn/c/games/basics/alpha_blend/src/texture.c",
+    "output": "/home/cristhianjhl/learn/c/games/basics/alpha_blend/build/texture.o"
   }
 ]
