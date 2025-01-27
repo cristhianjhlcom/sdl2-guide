@@ -15,8 +15,8 @@
       "-o",
       "build/main.o"
     ],
-    "directory": "/home/cristhianjhl/learn/c/games/basics/spritesheets_clip_render",
-    "file": "/home/cristhianjhl/learn/c/games/basics/spritesheets_clip_render/src/main.c",
-    "output": "/home/cristhianjhl/learn/c/games/basics/spritesheets_clip_render/build/main.o"
+    "directory": "/home/cristhianjhl/learn/c/games/basics/color_modulation",
+    "file": "/home/cristhianjhl/learn/c/games/basics/color_modulation/src/main.c",
+    "output": "/home/cristhianjhl/learn/c/games/basics/color_modulation/build/main.o"
   }
 ]

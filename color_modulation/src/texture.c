@@ -1,4 +1,3 @@
-#include "texture.h"
 #include "common.h"
 
 void texture_init(texture_t *t) {
@@ -35,6 +34,10 @@ void texture_render(texture_t *t, int x, int y, SDL_Rect *clip) {
 
     // Render to screen.
     SDL_RenderCopy(game_state.renderer, t->texture, clip, &dest);
+}
+
+void texture_set_color(texture_t *t, Uint8 red, Uint8 green, Uint8 blue) {
+    SDL_SetTextureColorMod(t->texture, red, green, blue);
 }
 
 bool texture_load_from_image(texture_t *t, const char *path) {
@@ -79,5 +82,4 @@ bool texture_load_from_image(texture_t *t, const char *path) {
 // - extern texture_t sprite_sheet_texture;
 // - extern SDL_Rect sprite_clips[4];
 // Now we have to define on our texture.c this make the variable available on other modules.
-texture_t sprite_sheet_texture;
-SDL_Rect sprite_clips[4];
+texture_t modulated_texture;

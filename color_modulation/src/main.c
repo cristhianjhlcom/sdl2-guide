@@ -1,5 +1,4 @@
 #include "common.h"
-#include "texture.h"
 
 game_state_t game_state;
 
@@ -11,7 +10,7 @@ int main(void) {
         exit(1);
     }
 
-    texture_init(&sprite_sheet_texture);
+    texture_init(&modulated_texture);
 
     if (!load_media()) {
         printf("Load media image failed %s\n", SDL_GetError());
@@ -26,6 +25,11 @@ int main(void) {
     // - Joy button press. (SDL_JoyButtonEvent)
     SDL_Event event;
 
+    // Modulation components.
+    Uint8 r = 255;
+    Uint8 g = 255;
+    Uint8 b = 255;
+
     // This is the game loop.
     // The core of any game application.
     while (game_state.is_running) {
@@ -38,6 +42,29 @@ int main(void) {
                 case SDL_QUIT:
                     game_state.is_running = false;
                     break;
+                case SDL_KEYDOWN:
+                    switch (event.key.keysym.sym) {
+                        case SDLK_q:
+                            r += 32;
+                            break;
+                        case SDLK_w:
+                            g += 32;
+                            break;
+                        case SDLK_e:
+                            b += 32;
+                            break;
+                        case SDLK_a:
+                            r -= 32;
+                            break;
+                        case SDLK_s:
+                            g -= 32;
+                            break;
+                        case SDLK_d:
+                            b -= 32;
+                            break;
+                        default:
+                            break;
+                    }
                 default:
                     break;
             }
@@ -53,21 +80,11 @@ int main(void) {
         SDL_RenderClear(game_state.renderer);
 
         // Blit here.
-        // #IMPORTANT. Can be called render or blit.
-        // Render top left sprite.
-        texture_render(&sprite_sheet_texture, 0, 0, &sprite_clips[0]);
-        // Render top right sprite.
-        texture_render(&sprite_sheet_texture,
-                       (SCREEN_WIDTH - sprite_clips[1].w), 0, &sprite_clips[1]);
-        // Render bottom left sprite.
-        texture_render(&sprite_sheet_texture, 0,
-                       (SCREEN_HEIGHT - sprite_clips[2].h), &sprite_clips[2]);
-        // Render bottom right sprite.
-        texture_render(&sprite_sheet_texture, (SCREEN_WIDTH - sprite_clips[3].w),
-                       (SCREEN_HEIGHT - sprite_clips[3].h), &sprite_clips[3]);
+        texture_set_color(&modulated_texture, r, g, b);
+        texture_render(&modulated_texture, 0, 0, NULL);
 
-        // Now we have to user RenderPresent because we are not using surface
-        // anymore then update screen.
+        // Now we have to user RenderPresent because we are not using
+        // surface anymore then update screen.
         SDL_RenderPresent(game_state.renderer);
     }
 
