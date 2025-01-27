@@ -1,0 +1,22 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/x86_64-linux-gnu-gcc-10",
+      "-Wall",
+      "-Wextra",
+      "-Wpedantic",
+      "-std=c2x",
+      "-I",
+      "include",
+      "-g",
+      "-DDEBUG",
+      "-c",
+      "src/main.c",
+      "-o",
+      "build/main.o"
+    ],
+    "directory": "/home/cristhianjhl/learn/c/games/basics/color_modulation",
+    "file": "/home/cristhianjhl/learn/c/games/basics/color_modulation/src/main.c",
+    "output": "/home/cristhianjhl/learn/c/games/basics/color_modulation/build/main.o"
+  }
+]
