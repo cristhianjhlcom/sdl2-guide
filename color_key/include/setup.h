@@ -1,6 +1,7 @@
 #pragma once
 
 #include "common.h"
+#include "structs.h"
 
 // Start up SDL and creates window.
 bool init(void);
@@ -10,3 +11,5 @@ bool load_media(void);
 SDL_Texture *load_texture(const char *path);
 // Free resources and shuts down SDL.
 void cleanup(void);
+
+extern game_state_t game_game_state;

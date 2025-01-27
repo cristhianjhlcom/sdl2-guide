@@ -1,7 +1,5 @@
 #include "common.h"
 
-extern state_t state;
-
 bool init(void) {
     // Initialize SDL.
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -24,16 +22,16 @@ bool init(void) {
     printf("window x %d window y %d\n", window_x, window_y);
 
     // Create windows.
-    state.window = SDL_CreateWindow("Game", window_x, window_y, SCREEN_WIDTH,
+    game_state.window = SDL_CreateWindow("Game", window_x, window_y, SCREEN_WIDTH,
                                     SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-    if (state.window == NULL) {
+    if (game_state.window == NULL) {
         printf("Window creation failed %s.\n", SDL_GetError());
         return false;
     }
 
-    state.renderer =
-        SDL_CreateRenderer(state.window, -1, SDL_RENDERER_ACCELERATED);
-    if (state.renderer == NULL) {
+    game_state.renderer =
+        SDL_CreateRenderer(game_state.window, -1, SDL_RENDERER_ACCELERATED);
+    if (game_state.renderer == NULL) {
         printf("Renderer creation failed %s.\n", SDL_GetError());
         return false;
     }
@@ -50,14 +48,17 @@ bool init(void) {
 }
 
 bool load_media(void) {
-    // Load PNG image resources.
-    /*
-    texture = load_texture("graphics/viewport.png");
-    if (texture == NULL) {
-        printf("Load texture image failed.\n");
+    // Load scene image resources.
+    if (!texture_load_from_image(&foo_texture, "graphics/foo.png")) {
+        printf("Load foo texture image failed.\n");
         return false;
     }
-    */
+
+    if (!texture_load_from_image(&background_texture, "graphics/background.png")) {
+        printf("Load background texture image failed.\n");
+        return false;
+    }
+
     return true;
 }
 
@@ -74,7 +75,7 @@ SDL_Texture *load_texture(const char *path) {
     }
 
     // Create texture from surface pixels.
-    new_texture = SDL_CreateTextureFromSurface(state.renderer, loaded_surface);
+    new_texture = SDL_CreateTextureFromSurface(game_state.renderer, loaded_surface);
     if (loaded_surface == NULL) {
         printf("Unabled create texture from %s SDL_Error %s.\n", path,
                SDL_GetError());
@@ -88,11 +89,14 @@ SDL_Texture *load_texture(const char *path) {
 }
 
 void cleanup(void) {
+    // Free loaded images resources.
+    texture_free(&foo_texture);
+    texture_free(&background_texture);
     // Destroy window.
-    SDL_DestroyRenderer(state.renderer);
-    SDL_DestroyWindow(state.window);
-    state.renderer = NULL;
-    state.window = NULL;
+    SDL_DestroyRenderer(game_state.renderer);
+    SDL_DestroyWindow(game_state.window);
+    game_state.renderer = NULL;
+    game_state.window = NULL;
     // Quit SDL subsystems.
     IMG_Quit();
     SDL_Quit();
