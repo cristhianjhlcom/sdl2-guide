@@ -22,3 +22,4 @@
 #include "constants.h"
 #include "setup.h"
 #include "structs.h"
+#include "texture.h"
