@@ -7,6 +7,10 @@ bool init(void) {
         return false;
     }
 
+    if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1")) {
+        printf("[warning] linear texture filtering not enabled.\n");
+    }
+
     SDL_Rect display_bounds;
 
     if (SDL_GetDisplayBounds(0, &display_bounds) != 0) {
@@ -22,8 +26,9 @@ bool init(void) {
     printf("window x %d window y %d\n", window_x, window_y);
 
     // Create windows.
-    game_state.window = SDL_CreateWindow("Game", window_x, window_y, SCREEN_WIDTH,
-                                    SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+    game_state.window =
+        SDL_CreateWindow("Game", window_x, window_y, SCREEN_WIDTH,
+                         SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
     if (game_state.window == NULL) {
         printf("Window creation failed %s.\n", SDL_GetError());
         return false;
@@ -35,6 +40,8 @@ bool init(void) {
         printf("Renderer creation failed %s.\n", SDL_GetError());
         return false;
     }
+
+    SDL_SetRenderDrawColor(game_state.renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 
     // Initialize PNG image resources.
     int image_flags = IMG_INIT_PNG;
@@ -49,15 +56,34 @@ bool init(void) {
 
 bool load_media(void) {
     // Load scene image resources.
-    if (!texture_load_from_image(&foo_texture, "graphics/foo.png")) {
-        printf("Load foo texture image failed.\n");
+    if (!texture_load_from_image(&sprite_sheet_texture, "graphics/dots.png")) {
+        printf("Load sprite sheet texture image failed.\n");
         return false;
     }
 
-    if (!texture_load_from_image(&background_texture, "graphics/background.png")) {
-        printf("Load background texture image failed.\n");
-        return false;
-    }
+    // Set top left sprite.
+    sprite_clips[0].x = 0;
+    sprite_clips[0].y = 0;
+    sprite_clips[0].w = 100;
+    sprite_clips[0].h = 100;
+
+    // Set top right sprite.
+    sprite_clips[1].x = 100;
+    sprite_clips[1].y = 0;
+    sprite_clips[1].w = 100;
+    sprite_clips[1].h = 100;
+
+    // Set bottom left sprite.
+    sprite_clips[2].x = 0;
+    sprite_clips[2].y = 100;
+    sprite_clips[2].w = 100;
+    sprite_clips[2].h = 100;
+
+    // Set bottom right sprite.
+    sprite_clips[3].x = 100;
+    sprite_clips[3].y = 100;
+    sprite_clips[3].w = 100;
+    sprite_clips[3].h = 100;
 
     return true;
 }
@@ -75,7 +101,8 @@ SDL_Texture *load_texture(const char *path) {
     }
 
     // Create texture from surface pixels.
-    new_texture = SDL_CreateTextureFromSurface(game_state.renderer, loaded_surface);
+    new_texture =
+        SDL_CreateTextureFromSurface(game_state.renderer, loaded_surface);
     if (loaded_surface == NULL) {
         printf("Unabled create texture from %s SDL_Error %s.\n", path,
                SDL_GetError());
@@ -90,8 +117,7 @@ SDL_Texture *load_texture(const char *path) {
 
 void cleanup(void) {
     // Free loaded images resources.
-    texture_free(&foo_texture);
-    texture_free(&background_texture);
+    texture_free(&sprite_sheet_texture);
     // Destroy window.
     SDL_DestroyRenderer(game_state.renderer);
     SDL_DestroyWindow(game_state.window);

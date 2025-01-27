@@ -12,11 +12,10 @@ typedef struct Texture {
 // Functions declarations.
 void texture_init(texture_t *t);
 void texture_free(texture_t *t);
-void texture_render(texture_t *t, int x, int y);
+void texture_render(texture_t *t, int x, int y, SDL_Rect *clip);
 bool texture_load_from_image(texture_t *t, const char *path);
 
 // #IMPORTANT. Global variables.
 // Scene textures.
-extern texture_t foo_texture;
-extern texture_t background_texture;
-
+extern texture_t sprite_sheet_texture;
+extern SDL_Rect sprite_clips[4];

@@ -1,4 +1,5 @@
 #include "common.h"
+#include "texture.h"
 
 game_state_t game_state;
 
@@ -10,8 +11,7 @@ int main(void) {
         exit(1);
     }
 
-    texture_init(&foo_texture);
-    texture_init(&background_texture);
+    texture_init(&sprite_sheet_texture);
 
     if (!load_media()) {
         printf("Load media image failed %s\n", SDL_GetError());
@@ -54,10 +54,17 @@ int main(void) {
 
         // Blit here.
         // #IMPORTANT. Can be called render or blit.
-        // Render background texture to screen.
-        texture_render(&background_texture, 0, 0);
-        // Render Foo's texture to screen.
-        texture_render(&foo_texture, 240, 190);
+        // Render top left sprite.
+        texture_render(&sprite_sheet_texture, 0, 0, &sprite_clips[0]);
+        // Render top right sprite.
+        texture_render(&sprite_sheet_texture,
+                       (SCREEN_WIDTH - sprite_clips[1].w), 0, &sprite_clips[1]);
+        // Render bottom left sprite.
+        texture_render(&sprite_sheet_texture, 0,
+                       (SCREEN_HEIGHT - sprite_clips[2].h), &sprite_clips[2]);
+        // Render bottom right sprite.
+        texture_render(&sprite_sheet_texture, (SCREEN_WIDTH - sprite_clips[3].w),
+                       (SCREEN_HEIGHT - sprite_clips[3].h), &sprite_clips[3]);
 
         // Now we have to user RenderPresent because we are not using surface
         // anymore then update screen.

@@ -15,48 +15,8 @@
       "-o",
       "build/main.o"
     ],
-    "directory": "/home/cristhianjhl/learn/c/games/basics/color_key",
-    "file": "/home/cristhianjhl/learn/c/games/basics/color_key/src/main.c",
-    "output": "/home/cristhianjhl/learn/c/games/basics/color_key/build/main.o"
-  },
-  {
-    "arguments": [
-      "/usr/bin/x86_64-linux-gnu-gcc-10",
-      "-Wall",
-      "-Wextra",
-      "-Wpedantic",
-      "-std=c2x",
-      "-I",
-      "include",
-      "-g",
-      "-DDEBUG",
-      "-c",
-      "src/setup.c",
-      "-o",
-      "build/setup.o"
-    ],
-    "directory": "/home/cristhianjhl/learn/c/games/basics/color_key",
-    "file": "/home/cristhianjhl/learn/c/games/basics/color_key/src/setup.c",
-    "output": "/home/cristhianjhl/learn/c/games/basics/color_key/build/setup.o"
-  },
-  {
-    "arguments": [
-      "/usr/bin/x86_64-linux-gnu-gcc-10",
-      "-Wall",
-      "-Wextra",
-      "-Wpedantic",
-      "-std=c2x",
-      "-I",
-      "include",
-      "-g",
-      "-DDEBUG",
-      "-c",
-      "src/texture.c",
-      "-o",
-      "build/texture.o"
-    ],
-    "directory": "/home/cristhianjhl/learn/c/games/basics/color_key",
-    "file": "/home/cristhianjhl/learn/c/games/basics/color_key/src/texture.c",
-    "output": "/home/cristhianjhl/learn/c/games/basics/color_key/build/texture.o"
+    "directory": "/home/cristhianjhl/learn/c/games/basics/spritesheets_clip_render",
+    "file": "/home/cristhianjhl/learn/c/games/basics/spritesheets_clip_render/src/main.c",
+    "output": "/home/cristhianjhl/learn/c/games/basics/spritesheets_clip_render/build/main.o"
   }
 ]

@@ -1,3 +1,4 @@
+#include "texture.h"
 #include "common.h"
 
 void texture_init(texture_t *t) {
@@ -18,13 +19,22 @@ void texture_free(texture_t *t) {
     }
 }
 
-void texture_render(texture_t *t, int x, int y) {
+void texture_render(texture_t *t, int x, int y, SDL_Rect *clip) {
+    // Set rendering space and render to screen.
     SDL_Rect dest;
     dest.w = t->w;
     dest.h = t->h;
     dest.x = x;
     dest.y = y;
-    SDL_RenderCopy(game_state.renderer, t->texture, NULL, &dest);
+
+    // Set clip rendering dimensions.
+    if (clip != NULL) {
+        dest.x = clip->x;
+        dest.y = clip->y;
+    }
+
+    // Render to screen.
+    SDL_RenderCopy(game_state.renderer, t->texture, clip, &dest);
 }
 
 bool texture_load_from_image(texture_t *t, const char *path) {
@@ -45,7 +55,8 @@ bool texture_load_from_image(texture_t *t, const char *path) {
     SDL_SetColorKey(loaded_surface, SDL_TRUE,
                     SDL_MapRGB(loaded_surface->format, 0, 0xFF, 0xFF));
     // Create texture from surface pixels.
-    new_texture = SDL_CreateTextureFromSurface(game_state.renderer, loaded_surface);
+    new_texture =
+        SDL_CreateTextureFromSurface(game_state.renderer, loaded_surface);
     if (loaded_surface == NULL) {
         printf("Unabled create texture from %s SDL_Error %s.\n", path,
                SDL_GetError());
@@ -63,5 +74,10 @@ bool texture_load_from_image(texture_t *t, const char *path) {
     return t->texture != NULL;
 }
 
-texture_t foo_texture;
-texture_t background_texture;
+// #IMPORTANT. Always defines your global (extern) variables on your .c files.
+// e.g We define two variables on our texture.h
+// - extern texture_t sprite_sheet_texture;
+// - extern SDL_Rect sprite_clips[4];
+// Now we have to define on our texture.c this make the variable available on other modules.
+texture_t sprite_sheet_texture;
+SDL_Rect sprite_clips[4];
