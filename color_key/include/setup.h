@@ -1,7 +1,6 @@
 #pragma once
 
 #include "common.h"
-#include "structs.h"
 
 // Start up SDL and creates window.
 bool init(void);

@@ -1,21 +1,24 @@
 #include "common.h"
 
-state_t state;
+game_state_t game_state;
 
 int main(void) {
-    memset(&state, 0, sizeof(state_t));
+    memset(&game_state, 0, sizeof(game_state_t));
 
     if (!init()) {
         printf("App Initialization failed!\n");
         exit(1);
     }
 
+    texture_init(&foo_texture);
+    texture_init(&background_texture);
+
     if (!load_media()) {
-        printf("Load image failed!\n");
+        printf("Load media image failed %s\n", SDL_GetError());
         exit(1);
     }
 
-    state.is_running = true;
+    game_state.is_running = true;
 
     // SDL Event handle system.
     // - Key press. (SDL_KeyboardEvent)
@@ -25,7 +28,7 @@ int main(void) {
 
     // This is the game loop.
     // The core of any game application.
-    while (state.is_running) {
+    while (game_state.is_running) {
         // Event loop.
         // Handle events on queue.
         // Keep proccesing the event queue until it is empty.
@@ -33,7 +36,7 @@ int main(void) {
             switch (event.type) {
                 // User requests quit the game.
                 case SDL_QUIT:
-                    state.is_running = false;
+                    game_state.is_running = false;
                     break;
                 default:
                     break;
@@ -43,17 +46,22 @@ int main(void) {
         // Set clearing white color on every frame.
         // Instead of set once on the init function.
         // Explained later!
-        SDL_SetRenderDrawColor(state.renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+        SDL_SetRenderDrawColor(game_state.renderer, 0xFF, 0xFF, 0xFF, 0xFF);
         // Clear screen.
         // Fills the screen we the color that we define on init function
         // - SDL_SetRenderDrawColor
-        SDL_RenderClear(state.renderer);
+        SDL_RenderClear(game_state.renderer);
 
         // Blit here.
+        // #IMPORTANT. Can be called render or blit.
+        // Render background texture to screen.
+        texture_render(&background_texture, 0, 0);
+        // Render Foo's texture to screen.
+        texture_render(&foo_texture, 240, 190);
 
         // Now we have to user RenderPresent because we are not using surface
         // anymore then update screen.
-        SDL_RenderPresent(state.renderer);
+        SDL_RenderPresent(game_state.renderer);
     }
 
     cleanup();
