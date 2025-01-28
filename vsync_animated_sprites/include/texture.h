@@ -21,5 +21,5 @@ bool texture_load_from_image(texture_t *t, const char *path);
 // #IMPORTANT. Global variables.
 // #IMPORTANT. You must define it on your .c file.
 // Scene textures.
-extern texture_t modulated_texture;
-extern texture_t background_texture;
+extern texture_t sprite_sheet_texture;
+extern SDL_Rect sprite_clips[WALKING_ANIMATION_FRAMES];

@@ -15,9 +15,9 @@
       "-o",
       "build/main.o"
     ],
-    "directory": "/home/cristhianjhl/learn/c/games/basics/alpha_blend",
-    "file": "/home/cristhianjhl/learn/c/games/basics/alpha_blend/src/main.c",
-    "output": "/home/cristhianjhl/learn/c/games/basics/alpha_blend/build/main.o"
+    "directory": "/home/cristhianjhl/learn/c/games/basics/vsync_animated_sprites",
+    "file": "/home/cristhianjhl/learn/c/games/basics/vsync_animated_sprites/src/main.c",
+    "output": "/home/cristhianjhl/learn/c/games/basics/vsync_animated_sprites/build/main.o"
   },
   {
     "arguments": [
@@ -35,9 +35,9 @@
       "-o",
       "build/setup.o"
     ],
-    "directory": "/home/cristhianjhl/learn/c/games/basics/alpha_blend",
-    "file": "/home/cristhianjhl/learn/c/games/basics/alpha_blend/src/setup.c",
-    "output": "/home/cristhianjhl/learn/c/games/basics/alpha_blend/build/setup.o"
+    "directory": "/home/cristhianjhl/learn/c/games/basics/vsync_animated_sprites",
+    "file": "/home/cristhianjhl/learn/c/games/basics/vsync_animated_sprites/src/setup.c",
+    "output": "/home/cristhianjhl/learn/c/games/basics/vsync_animated_sprites/build/setup.o"
   },
   {
     "arguments": [
@@ -55,8 +55,8 @@
       "-o",
       "build/texture.o"
     ],
-    "directory": "/home/cristhianjhl/learn/c/games/basics/alpha_blend",
-    "file": "/home/cristhianjhl/learn/c/games/basics/alpha_blend/src/texture.c",
-    "output": "/home/cristhianjhl/learn/c/games/basics/alpha_blend/build/texture.o"
+    "directory": "/home/cristhianjhl/learn/c/games/basics/vsync_animated_sprites",
+    "file": "/home/cristhianjhl/learn/c/games/basics/vsync_animated_sprites/src/texture.c",
+    "output": "/home/cristhianjhl/learn/c/games/basics/vsync_animated_sprites/build/texture.o"
   }
 ]

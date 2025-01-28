@@ -1,5 +1,4 @@
 #include "common.h"
-#include "texture.h"
 
 bool init(void) {
     // Initialize SDL.
@@ -35,8 +34,9 @@ bool init(void) {
         return false;
     }
 
-    game_state.renderer =
-        SDL_CreateRenderer(game_state.window, -1, SDL_RENDERER_ACCELERATED);
+    game_state.renderer = SDL_CreateRenderer(
+        game_state.window, -1,
+        SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if (game_state.renderer == NULL) {
         printf("Renderer creation failed %s.\n", SDL_GetError());
         return false;
@@ -57,17 +57,31 @@ bool init(void) {
 
 bool load_media(void) {
     // Load scene image resources.
-    if (!texture_load_from_image(&modulated_texture, "graphics/fadeout.png")) {
-        printf("Load fadeout texture image failed.\n");
+    if (!texture_load_from_image(&sprite_sheet_texture, "graphics/foo.png")) {
+        printf("Load foo texture image failed.\n");
         return false;
     }
 
-    texture_set_blend_mode(&modulated_texture, SDL_BLENDMODE_BLEND);
+    // Set sprite clips.
+    sprite_clips[0].x = 0;
+    sprite_clips[0].y = 0;
+    sprite_clips[0].w = 64;
+    sprite_clips[0].h = 205;
 
-    if (!texture_load_from_image(&background_texture, "graphics/fadein.png")) {
-        printf("Load fadeout texture image failed.\n");
-        return false;
-    }
+    sprite_clips[1].x = 64;
+    sprite_clips[1].y = 0;
+    sprite_clips[1].w = 64;
+    sprite_clips[1].h = 205;
+
+    sprite_clips[2].x = 128;
+    sprite_clips[2].y = 0;
+    sprite_clips[2].w = 64;
+    sprite_clips[2].h = 205;
+
+    sprite_clips[3].x = 192;
+    sprite_clips[3].y = 0;
+    sprite_clips[3].w = 64;
+    sprite_clips[3].h = 205;
 
     return true;
 }
@@ -101,7 +115,7 @@ SDL_Texture *load_texture(const char *path) {
 
 void cleanup(void) {
     // Free loaded images resources.
-    texture_free(&modulated_texture);
+    texture_free(&sprite_sheet_texture);
     // Destroy window.
     SDL_DestroyRenderer(game_state.renderer);
     SDL_DestroyWindow(game_state.window);

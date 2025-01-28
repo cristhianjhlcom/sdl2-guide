@@ -1,5 +1,4 @@
 #include "common.h"
-#include "texture.h"
 
 game_state_t game_state;
 
@@ -11,8 +10,7 @@ int main(void) {
         exit(1);
     }
 
-    texture_init(&modulated_texture);
-    texture_init(&background_texture);
+    texture_init(&sprite_sheet_texture);
 
     if (!load_media()) {
         printf("Load media image failed %s\n", SDL_GetError());
@@ -27,8 +25,8 @@ int main(void) {
     // - Joy button press. (SDL_JoyButtonEvent)
     SDL_Event event;
 
-    // Modulation components.
-    Uint8 a = 255;
+    // Current animation frame.
+    int frame = 0;
 
     // This is the game loop.
     // The core of any game application.
@@ -46,20 +44,7 @@ int main(void) {
                     switch (event.key.keysym.sym) {
                         // Increase alpha on w.
                         case SDLK_w:
-                            // Cap if over 255.
-                            if (a + 32 > 255) {
-                                a = 255;
-                            } else {
-                                a += 32;
-                            }
-                        // Decrease alpha on s.
-                        case SDLK_s:
-                            // Cap if below 0.
-                            if (a - 32 < 0) {
-                                a = 0;
-                            } else {
-                                a -= 32;
-                            }
+                            break;
                         default:
                             break;
                     }
@@ -78,13 +63,21 @@ int main(void) {
         SDL_RenderClear(game_state.renderer);
 
         // Blit here.
-        texture_render(&background_texture, 0, 0, NULL);
-        texture_set_alpha(&modulated_texture, a);
-        texture_render(&modulated_texture, 0, 0, NULL);
+        SDL_Rect *current_clip = &sprite_clips[frame / 4];
+        texture_render(&sprite_sheet_texture,
+                       (SCREEN_WIDTH - current_clip->w) / 2,
+                       (SCREEN_HEIGHT - current_clip->h) / 2, current_clip);
 
         // Now we have to user RenderPresent because we are not using
         // surface anymore then update screen.
         SDL_RenderPresent(game_state.renderer);
+
+        // Go next frame.
+        ++frame;
+        // Cycle animation.
+        if (frame / 4 >= WALKING_ANIMATION_FRAMES) {
+            frame = 0;
+        }
     }
 
     cleanup();

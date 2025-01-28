@@ -98,5 +98,5 @@ bool texture_load_from_image(texture_t *t, const char *path) {
 // - extern SDL_Rect sprite_clips[4];
 // Now we have to define on our texture.c this make the variable available on
 // other modules.
-texture_t modulated_texture;
-texture_t background_texture;
+texture_t sprite_sheet_texture;
+SDL_Rect sprite_clips[WALKING_ANIMATION_FRAMES];
