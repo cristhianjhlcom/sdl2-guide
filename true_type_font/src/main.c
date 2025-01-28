@@ -1,5 +1,4 @@
 #include "common.h"
-#include "constants.h"
 
 game_state_t game_state;
 
@@ -11,7 +10,7 @@ int main(void) {
         exit(1);
     }
 
-    texture_init(&arrow_texture);
+    texture_init(&text_texture);
 
     if (!load_media()) {
         printf("Load media image failed %s\n", SDL_GetError());
@@ -26,11 +25,6 @@ int main(void) {
     // - Joy button press. (SDL_JoyButtonEvent)
     SDL_Event event;
 
-    // Angle of rotation.
-    double degrees = 0;
-    // Flip type.
-    SDL_RendererFlip flip_type = SDL_FLIP_NONE;
-
     // This is the game loop.
     // The core of any game application.
     while (game_state.is_running) {
@@ -43,45 +37,24 @@ int main(void) {
                 case SDL_QUIT:
                     game_state.is_running = false;
                     break;
-                case SDL_KEYDOWN:
-                    switch (event.key.keysym.sym) {
-                        // Increase alpha on w.
-                        case SDLK_a:
-                            degrees -= 60;
-                            break;
-                        case SDLK_d:
-                            degrees += 60;
-                            break;
-                        case SDLK_q:
-                            flip_type = SDL_FLIP_HORIZONTAL;
-                            break;
-                        case SDLK_w:
-                            flip_type = SDL_FLIP_NONE;
-                            break;
-                        case SDLK_e:
-                            flip_type = SDL_FLIP_VERTICAL;
-                            break;
-                        default:
-                            break;
-                    }
-                default:
-                    break;
             }
         }
 
         // Set clearing white color on every frame.
         // Instead of set once on the init function.
         // Explained later!
-        SDL_SetRenderDrawColor(game_state.renderer, 0x0, 0x0, 0x0, 0x0);
+        SDL_SetRenderDrawColor(game_state.renderer, 0xFF, 0xFF, 0xFF, 0xFF);
         // Clear screen.
         // Fills the screen we the color that we define on init function
         // - SDL_SetRenderDrawColor
         SDL_RenderClear(game_state.renderer);
 
+        // Element x and y positions.
+        int x_pos = (SCREEN_WIDTH - text_texture.w) / 2;
+        int y_pos = (SCREEN_HEIGHT - text_texture.h) / 2;
+
         // Blit here.
-        texture_render(&arrow_texture, (SCREEN_WIDTH - arrow_texture.w) / 2,
-                       (SCREEN_HEIGHT - arrow_texture.h) / 2, NULL, degrees,
-                       NULL, flip_type);
+        texture_render(&text_texture, x_pos, y_pos, NULL, 0.0, NULL, SDL_FLIP_NONE);
 
         // Now we have to user RenderPresent because we are not using
         // surface anymore then update screen.

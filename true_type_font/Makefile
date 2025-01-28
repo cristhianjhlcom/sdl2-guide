@@ -8,7 +8,7 @@ CC_STD = c2x
 CC = gcc
 CC_WARNINGS = -Wall -Wextra -Wpedantic
 CC_FLAGS = $(CC_WARNINGS) -std=$(CC_STD) -I $(INCLUDE_DIR)
-CL_FLAGS = -lSDL2 -lSDL2_image -lSDL2_mixer
+CL_FLAGS = -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf
 
 ifeq ($(DEBUG), 1)
     CC_FLAGS += -g -DDEBUG
@@ -36,7 +36,7 @@ run:
 
 install:
 	sudo apt-get update
-	sudo apt-get install libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev
+	sudo apt-get install libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev
 	sudo apt-get install bear
 
 clean:

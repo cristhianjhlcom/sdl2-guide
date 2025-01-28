@@ -51,14 +51,29 @@ bool init(void) {
         return false;
     }
 
+    if (TTF_Init() == -1) {
+        printf("SDL_ttf initialization failed %s.\n", TTF_GetError());
+        return false;
+    }
+
     printf("Game Started!\n");
     return true;
 }
 
 bool load_media(void) {
-    // Load scene image resources.
-    if (!texture_load_from_image(&arrow_texture, "graphics/arrow.png")) {
-        printf("Load foo texture image failed.\n");
+    // Load scene resources.
+    font = TTF_OpenFont("assets/fonts/lazy.ttf", 28);
+    if (font == NULL) {
+        printf("Cannot load the lazy font %s.\n", TTF_GetError());
+        return false;
+    }
+
+    SDL_Color text_color = {0x0, 0x0, 0x0, 0x0};
+    if (!texture_load_from_rendered_text(
+            &text_texture,
+            "El zorron marron rapido salta sobre el perro perezoso",
+            text_color)) {
+        printf("Text renderization failed\n");
         return false;
     }
 
@@ -94,13 +109,17 @@ SDL_Texture *load_texture(const char *path) {
 
 void cleanup(void) {
     // Free loaded images resources.
-    texture_free(&arrow_texture);
+    texture_free(&text_texture);
+    // Free global font.
+    TTF_CloseFont(font);
+    font = NULL;
     // Destroy window.
     SDL_DestroyRenderer(game_state.renderer);
     SDL_DestroyWindow(game_state.window);
     game_state.renderer = NULL;
     game_state.window = NULL;
     // Quit SDL subsystems.
+    TTF_Quit();
     IMG_Quit();
     SDL_Quit();
 }
