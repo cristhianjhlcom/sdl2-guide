@@ -1,3 +1,5 @@
+#include <SDL2/SDL_render.h>
+
 #include "common.h"
 
 // Initializes variables.
@@ -21,7 +23,8 @@ void texture_free(texture_t *t) {
 }
 
 // Renders texture at given point.
-void texture_render(texture_t *t, int x, int y, SDL_Rect *clip) {
+void texture_render(texture_t *t, int x, int y, SDL_Rect *clip, double angle,
+                    SDL_Point *center, SDL_RendererFlip flip) {
     // Set rendering space and render to screen.
     SDL_Rect dest;
     dest.w = t->w;
@@ -36,7 +39,8 @@ void texture_render(texture_t *t, int x, int y, SDL_Rect *clip) {
     }
 
     // Render to screen.
-    SDL_RenderCopy(game_state.renderer, t->texture, clip, &dest);
+    SDL_RenderCopyEx(game_state.renderer, t->texture, clip, &dest, angle,
+                     center, flip);
 }
 
 // Set blending.
@@ -98,5 +102,4 @@ bool texture_load_from_image(texture_t *t, const char *path) {
 // - extern SDL_Rect sprite_clips[4];
 // Now we have to define on our texture.c this make the variable available on
 // other modules.
-texture_t sprite_sheet_texture;
-SDL_Rect sprite_clips[WALKING_ANIMATION_FRAMES];
+texture_t arrow_texture;

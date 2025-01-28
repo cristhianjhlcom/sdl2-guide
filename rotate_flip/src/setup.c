@@ -57,31 +57,10 @@ bool init(void) {
 
 bool load_media(void) {
     // Load scene image resources.
-    if (!texture_load_from_image(&sprite_sheet_texture, "graphics/foo.png")) {
+    if (!texture_load_from_image(&arrow_texture, "graphics/arrow.png")) {
         printf("Load foo texture image failed.\n");
         return false;
     }
-
-    // Set sprite clips.
-    sprite_clips[0].x = 0;
-    sprite_clips[0].y = 0;
-    sprite_clips[0].w = 64;
-    sprite_clips[0].h = 205;
-
-    sprite_clips[1].x = 64;
-    sprite_clips[1].y = 0;
-    sprite_clips[1].w = 64;
-    sprite_clips[1].h = 205;
-
-    sprite_clips[2].x = 128;
-    sprite_clips[2].y = 0;
-    sprite_clips[2].w = 64;
-    sprite_clips[2].h = 205;
-
-    sprite_clips[3].x = 192;
-    sprite_clips[3].y = 0;
-    sprite_clips[3].w = 64;
-    sprite_clips[3].h = 205;
 
     return true;
 }
@@ -115,7 +94,7 @@ SDL_Texture *load_texture(const char *path) {
 
 void cleanup(void) {
     // Free loaded images resources.
-    texture_free(&sprite_sheet_texture);
+    texture_free(&arrow_texture);
     // Destroy window.
     SDL_DestroyRenderer(game_state.renderer);
     SDL_DestroyWindow(game_state.window);

@@ -15,9 +15,9 @@
       "-o",
       "build/main.o"
     ],
-    "directory": "/home/cristhianjhl/learn/c/games/basics/vsync_animated_sprites",
-    "file": "/home/cristhianjhl/learn/c/games/basics/vsync_animated_sprites/src/main.c",
-    "output": "/home/cristhianjhl/learn/c/games/basics/vsync_animated_sprites/build/main.o"
+    "directory": "/home/cristhianjhl/learn/c/games/basics/rotate_flip",
+    "file": "/home/cristhianjhl/learn/c/games/basics/rotate_flip/src/main.c",
+    "output": "/home/cristhianjhl/learn/c/games/basics/rotate_flip/build/main.o"
   },
   {
     "arguments": [
@@ -35,9 +35,9 @@
       "-o",
       "build/setup.o"
     ],
-    "directory": "/home/cristhianjhl/learn/c/games/basics/vsync_animated_sprites",
-    "file": "/home/cristhianjhl/learn/c/games/basics/vsync_animated_sprites/src/setup.c",
-    "output": "/home/cristhianjhl/learn/c/games/basics/vsync_animated_sprites/build/setup.o"
+    "directory": "/home/cristhianjhl/learn/c/games/basics/rotate_flip",
+    "file": "/home/cristhianjhl/learn/c/games/basics/rotate_flip/src/setup.c",
+    "output": "/home/cristhianjhl/learn/c/games/basics/rotate_flip/build/setup.o"
   },
   {
     "arguments": [
@@ -55,8 +55,8 @@
       "-o",
       "build/texture.o"
     ],
-    "directory": "/home/cristhianjhl/learn/c/games/basics/vsync_animated_sprites",
-    "file": "/home/cristhianjhl/learn/c/games/basics/vsync_animated_sprites/src/texture.c",
-    "output": "/home/cristhianjhl/learn/c/games/basics/vsync_animated_sprites/build/texture.o"
+    "directory": "/home/cristhianjhl/learn/c/games/basics/rotate_flip",
+    "file": "/home/cristhianjhl/learn/c/games/basics/rotate_flip/src/texture.c",
+    "output": "/home/cristhianjhl/learn/c/games/basics/rotate_flip/build/texture.o"
   }
 ]

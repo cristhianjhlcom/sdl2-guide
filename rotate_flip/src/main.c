@@ -1,4 +1,5 @@
 #include "common.h"
+#include "constants.h"
 
 game_state_t game_state;
 
@@ -10,7 +11,7 @@ int main(void) {
         exit(1);
     }
 
-    texture_init(&sprite_sheet_texture);
+    texture_init(&arrow_texture);
 
     if (!load_media()) {
         printf("Load media image failed %s\n", SDL_GetError());
@@ -25,8 +26,10 @@ int main(void) {
     // - Joy button press. (SDL_JoyButtonEvent)
     SDL_Event event;
 
-    // Current animation frame.
-    int frame = 0;
+    // Angle of rotation.
+    double degrees = 0;
+    // Flip type.
+    SDL_RendererFlip flip_type = SDL_FLIP_NONE;
 
     // This is the game loop.
     // The core of any game application.
@@ -43,7 +46,20 @@ int main(void) {
                 case SDL_KEYDOWN:
                     switch (event.key.keysym.sym) {
                         // Increase alpha on w.
+                        case SDLK_a:
+                            degrees -= 60;
+                            break;
+                        case SDLK_d:
+                            degrees += 60;
+                            break;
+                        case SDLK_q:
+                            flip_type = SDL_FLIP_HORIZONTAL;
+                            break;
                         case SDLK_w:
+                            flip_type = SDL_FLIP_NONE;
+                            break;
+                        case SDLK_e:
+                            flip_type = SDL_FLIP_VERTICAL;
                             break;
                         default:
                             break;
@@ -56,28 +72,20 @@ int main(void) {
         // Set clearing white color on every frame.
         // Instead of set once on the init function.
         // Explained later!
-        SDL_SetRenderDrawColor(game_state.renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+        SDL_SetRenderDrawColor(game_state.renderer, 0x0, 0x0, 0x0, 0x0);
         // Clear screen.
         // Fills the screen we the color that we define on init function
         // - SDL_SetRenderDrawColor
         SDL_RenderClear(game_state.renderer);
 
         // Blit here.
-        SDL_Rect *current_clip = &sprite_clips[frame / 4];
-        texture_render(&sprite_sheet_texture,
-                       (SCREEN_WIDTH - current_clip->w) / 2,
-                       (SCREEN_HEIGHT - current_clip->h) / 2, current_clip);
+        texture_render(&arrow_texture, (SCREEN_WIDTH - arrow_texture.w) / 2,
+                       (SCREEN_HEIGHT - arrow_texture.h) / 2, NULL, degrees,
+                       NULL, flip_type);
 
         // Now we have to user RenderPresent because we are not using
         // surface anymore then update screen.
         SDL_RenderPresent(game_state.renderer);
-
-        // Go next frame.
-        ++frame;
-        // Cycle animation.
-        if (frame / 4 >= WALKING_ANIMATION_FRAMES) {
-            frame = 0;
-        }
     }
 
     cleanup();
