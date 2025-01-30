@@ -51,68 +51,37 @@ bool init(void) {
         return false;
     }
 
-    if (TTF_Init() == -1) {
-        printf("SDL_ttf initialization failed %s.\n", TTF_GetError());
-        return false;
-    }
-
     printf("Game Started!\n");
     return true;
 }
 
 bool load_media(void) {
     // Load scene resources.
-    font = TTF_OpenFont("assets/fonts/lazy.ttf", 28);
-    if (font == NULL) {
-        printf("Cannot load the lazy font %s.\n", TTF_GetError());
+    if (!texture_load_from_image(&button_sprite_sheet,
+                                 "assets/graphics/button.png")) {
+        printf("Button graphics load failed.\n");
         return false;
     }
 
-    SDL_Color text_color = {0x0, 0x0, 0x0, 0x0};
-    if (!texture_load_from_rendered_text(
-            &text_texture,
-            "El zorron marron rapido salta sobre el perro perezoso",
-            text_color)) {
-        printf("Text renderization failed\n");
-        return false;
+    for (int idx = 0; idx < BUTTON_SPRITE_MOUSE_TOTAL; ++idx) {
+        sprites_clips[idx].x = 0;
+        sprites_clips[idx].y = idx * 200;
+        sprites_clips[idx].w = BUTTON_WIDTH;
+        sprites_clips[idx].h = BUTTON_HEIGHT;
     }
+
+    button_set_position(&buttons[0], 0, 0);
+    button_set_position(&buttons[1], SCREEN_WIDTH - BUTTON_WIDTH, 0);
+    button_set_position(&buttons[2], 0, SCREEN_HEIGHT - BUTTON_HEIGHT);
+    button_set_position(&buttons[3], SCREEN_WIDTH - BUTTON_WIDTH,
+                        SCREEN_HEIGHT - BUTTON_HEIGHT);
 
     return true;
 }
 
-SDL_Texture *load_texture(const char *path) {
-    // The final texture.
-    SDL_Texture *new_texture = NULL;
-
-    // Load image at specified path.
-    SDL_Surface *loaded_surface = IMG_Load(path);
-    if (loaded_surface == NULL) {
-        printf("Unabled to load image %s SDL_Error %s.\n", path,
-               SDL_GetError());
-        return NULL;
-    }
-
-    // Create texture from surface pixels.
-    new_texture =
-        SDL_CreateTextureFromSurface(game_state.renderer, loaded_surface);
-    if (loaded_surface == NULL) {
-        printf("Unabled create texture from %s SDL_Error %s.\n", path,
-               SDL_GetError());
-        return NULL;
-    }
-
-    // Get rid of old loaded texture.
-    SDL_FreeSurface(loaded_surface);
-
-    return new_texture;
-}
-
 void cleanup(void) {
     // Free loaded images resources.
-    texture_free(&text_texture);
-    // Free global font.
-    TTF_CloseFont(font);
-    font = NULL;
+    texture_free(&button_sprite_sheet);
     // Destroy window.
     SDL_DestroyRenderer(game_state.renderer);
     SDL_DestroyWindow(game_state.window);

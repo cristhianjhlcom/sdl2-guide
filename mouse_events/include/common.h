@@ -23,6 +23,7 @@
 
 // Custom headers.
 #include "constants.h"
+#include "button.h"
 #include "game_state.h"
 #include "setup.h"
 #include "texture.h"

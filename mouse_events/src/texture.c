@@ -6,8 +6,8 @@
 // - extern SDL_Rect sprite_clips[4];
 // Now we have to define on our texture.c this make the variable available on
 // other modules.
-texture_t text_texture;
-TTF_Font *font;
+texture_t button_sprite_sheet;
+texture_t sprites_clips[BUTTON_SPRITE_MOUSE_TOTAL];
 
 // Initializes variables.
 void texture_init(texture_t *t) {
@@ -103,32 +103,3 @@ bool texture_load_from_image(texture_t *t, const char *path) {
     return t->texture != NULL;
 }
 
-bool texture_load_from_rendered_text(texture_t *t, const char *texture_text,
-                                     SDL_Color text_color) {
-    texture_free(t);
-
-    // Render text surface.
-    SDL_Surface *text_surface =
-        TTF_RenderText_Solid(font, texture_text, text_color);
-    if (text_surface == NULL) {
-        printf("Unabled create font texture SDL_Error %s.\n", SDL_GetError());
-        return false;
-    }
-
-    // Create surface from surface pixel.
-    t->texture =
-        SDL_CreateTextureFromSurface(game_state.renderer, text_surface);
-    if (t->texture == NULL) {
-        printf("Unable to create texture from rendered text! SDL Error: %s\n",
-               SDL_GetError());
-        return false;
-    }
-
-    t->w = text_surface->w;
-    t->h = text_surface->h;
-
-    // Get rid of old loaded texture.
-    SDL_FreeSurface(text_surface);
-
-    return t->texture != NULL;
-}

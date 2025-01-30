@@ -10,7 +10,7 @@ int main(void) {
         exit(1);
     }
 
-    texture_init(&text_texture);
+    texture_init(&button_sprite_sheet);
 
     if (!load_media()) {
         printf("Load media image failed %s\n", SDL_GetError());
@@ -38,6 +38,10 @@ int main(void) {
                     game_state.is_running = false;
                     break;
             }
+
+            for (int idx = 0; idx < TOTAL_BUTTONS; idx++) {
+                button_handle_event(&buttons[idx], &event);
+            }
         }
 
         // Set clearing white color on every frame.
@@ -49,12 +53,10 @@ int main(void) {
         // - SDL_SetRenderDrawColor
         SDL_RenderClear(game_state.renderer);
 
-        // Element x and y positions.
-        int x_pos = (SCREEN_WIDTH - text_texture.w) / 2;
-        int y_pos = (SCREEN_HEIGHT - text_texture.h) / 2;
-
         // Blit here.
-        texture_render(&text_texture, x_pos, y_pos, NULL, 0.0, NULL, SDL_FLIP_NONE);
+        for (int idx = 0; idx < TOTAL_BUTTONS; idx++) {
+            button_render(&buttons[idx]);
+        }
 
         // Now we have to user RenderPresent because we are not using
         // surface anymore then update screen.
