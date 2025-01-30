@@ -22,8 +22,8 @@
 #include <time.h>
 
 // Custom headers.
-#include "button.h"
 #include "constants.h"
+#include "button.h"
 #include "game_state.h"
 #include "setup.h"
 #include "texture.h"

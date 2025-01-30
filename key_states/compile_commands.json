@@ -1,0 +1,62 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/x86_64-linux-gnu-gcc-10",
+      "-Wall",
+      "-Wextra",
+      "-Wpedantic",
+      "-std=c2x",
+      "-I",
+      "include",
+      "-g",
+      "-DDEBUG",
+      "-c",
+      "src/button.c",
+      "-o",
+      "build/button.o"
+    ],
+    "directory": "/home/cristhianjhl/learn/c/games/basics/mouse_events",
+    "file": "/home/cristhianjhl/learn/c/games/basics/mouse_events/src/button.c",
+    "output": "/home/cristhianjhl/learn/c/games/basics/mouse_events/build/button.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/x86_64-linux-gnu-gcc-10",
+      "-Wall",
+      "-Wextra",
+      "-Wpedantic",
+      "-std=c2x",
+      "-I",
+      "include",
+      "-g",
+      "-DDEBUG",
+      "-c",
+      "src/main.c",
+      "-o",
+      "build/main.o"
+    ],
+    "directory": "/home/cristhianjhl/learn/c/games/basics/mouse_events",
+    "file": "/home/cristhianjhl/learn/c/games/basics/mouse_events/src/main.c",
+    "output": "/home/cristhianjhl/learn/c/games/basics/mouse_events/build/main.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/x86_64-linux-gnu-gcc-10",
+      "-Wall",
+      "-Wextra",
+      "-Wpedantic",
+      "-std=c2x",
+      "-I",
+      "include",
+      "-g",
+      "-DDEBUG",
+      "-c",
+      "src/setup.c",
+      "-o",
+      "build/setup.o"
+    ],
+    "directory": "/home/cristhianjhl/learn/c/games/basics/mouse_events",
+    "file": "/home/cristhianjhl/learn/c/games/basics/mouse_events/src/setup.c",
+    "output": "/home/cristhianjhl/learn/c/games/basics/mouse_events/build/setup.o"
+  }
+]
