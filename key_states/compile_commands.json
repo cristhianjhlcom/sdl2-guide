@@ -11,13 +11,13 @@
       "-g",
       "-DDEBUG",
       "-c",
-      "src/button.c",
+      "src/inputs.c",
       "-o",
-      "build/button.o"
+      "build/inputs.o"
     ],
-    "directory": "/home/cristhianjhl/learn/c/games/basics/mouse_events",
-    "file": "/home/cristhianjhl/learn/c/games/basics/mouse_events/src/button.c",
-    "output": "/home/cristhianjhl/learn/c/games/basics/mouse_events/build/button.o"
+    "directory": "/home/cristhianjhl/learn/c/games/basics/key_states",
+    "file": "/home/cristhianjhl/learn/c/games/basics/key_states/src/inputs.c",
+    "output": "/home/cristhianjhl/learn/c/games/basics/key_states/build/inputs.o"
   },
   {
     "arguments": [
@@ -35,9 +35,9 @@
       "-o",
       "build/main.o"
     ],
-    "directory": "/home/cristhianjhl/learn/c/games/basics/mouse_events",
-    "file": "/home/cristhianjhl/learn/c/games/basics/mouse_events/src/main.c",
-    "output": "/home/cristhianjhl/learn/c/games/basics/mouse_events/build/main.o"
+    "directory": "/home/cristhianjhl/learn/c/games/basics/key_states",
+    "file": "/home/cristhianjhl/learn/c/games/basics/key_states/src/main.c",
+    "output": "/home/cristhianjhl/learn/c/games/basics/key_states/build/main.o"
   },
   {
     "arguments": [
@@ -55,8 +55,28 @@
       "-o",
       "build/setup.o"
     ],
-    "directory": "/home/cristhianjhl/learn/c/games/basics/mouse_events",
-    "file": "/home/cristhianjhl/learn/c/games/basics/mouse_events/src/setup.c",
-    "output": "/home/cristhianjhl/learn/c/games/basics/mouse_events/build/setup.o"
+    "directory": "/home/cristhianjhl/learn/c/games/basics/key_states",
+    "file": "/home/cristhianjhl/learn/c/games/basics/key_states/src/setup.c",
+    "output": "/home/cristhianjhl/learn/c/games/basics/key_states/build/setup.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/x86_64-linux-gnu-gcc-10",
+      "-Wall",
+      "-Wextra",
+      "-Wpedantic",
+      "-std=c2x",
+      "-I",
+      "include",
+      "-g",
+      "-DDEBUG",
+      "-c",
+      "src/texture.c",
+      "-o",
+      "build/texture.o"
+    ],
+    "directory": "/home/cristhianjhl/learn/c/games/basics/key_states",
+    "file": "/home/cristhianjhl/learn/c/games/basics/key_states/src/texture.c",
+    "output": "/home/cristhianjhl/learn/c/games/basics/key_states/build/texture.o"
   }
 ]

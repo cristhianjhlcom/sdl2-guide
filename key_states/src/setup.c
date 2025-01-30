@@ -57,31 +57,37 @@ bool init(void) {
 
 bool load_media(void) {
     // Load scene resources.
+    /*
     if (!texture_load_from_image(&button_sprite_sheet,
                                  "assets/graphics/button.png")) {
         printf("Button graphics load failed.\n");
         return false;
     }
-
-    for (int idx = 0; idx < BUTTON_SPRITE_MOUSE_TOTAL; ++idx) {
-        sprites_clips[idx].x = 0;
-        sprites_clips[idx].y = idx * 200;
-        sprites_clips[idx].w = BUTTON_WIDTH;
-        sprites_clips[idx].h = BUTTON_HEIGHT;
-    }
-
-    button_set_position(&buttons[0], 0, 0);
-    button_set_position(&buttons[1], SCREEN_WIDTH - BUTTON_WIDTH, 0);
-    button_set_position(&buttons[2], 0, SCREEN_HEIGHT - BUTTON_HEIGHT);
-    button_set_position(&buttons[3], SCREEN_WIDTH - BUTTON_WIDTH,
-                        SCREEN_HEIGHT - BUTTON_HEIGHT);
+    */
 
     return true;
 }
 
+void render(void) {
+    // Set clearing white color on every frame.
+    // Instead of set once on the init function.
+    // Explained later!
+    SDL_SetRenderDrawColor(game_state.renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+    // Clear screen.
+    // Fills the screen we the color that we define on init function
+    // - SDL_SetRenderDrawColor
+    SDL_RenderClear(game_state.renderer);
+}
+
+void present(void) {
+    // Now we have to user RenderPresent because we are not using
+    // surface anymore then update screen.
+    SDL_RenderPresent(game_state.renderer);
+}
+
 void cleanup(void) {
     // Free loaded images resources.
-    texture_free(&button_sprite_sheet);
+    // texture_free(&button_sprite_sheet);
     // Destroy window.
     SDL_DestroyRenderer(game_state.renderer);
     SDL_DestroyWindow(game_state.window);

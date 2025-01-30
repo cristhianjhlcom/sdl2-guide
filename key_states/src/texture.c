@@ -6,8 +6,7 @@
 // - extern SDL_Rect sprite_clips[4];
 // Now we have to define on our texture.c this make the variable available on
 // other modules.
-texture_t button_sprite_sheet;
-texture_t sprites_clips[BUTTON_SPRITE_MOUSE_TOTAL];
+// texture_t button_sprite_sheet;
 
 // Initializes variables.
 void texture_init(texture_t *t) {
@@ -102,4 +101,3 @@ bool texture_load_from_image(texture_t *t, const char *path) {
 
     return t->texture != NULL;
 }
-
