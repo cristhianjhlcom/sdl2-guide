@@ -6,7 +6,12 @@
 // - extern SDL_Rect sprite_clips[4];
 // Now we have to define on our texture.c this make the variable available on
 // other modules.
-// texture_t button_sprite_sheet;
+texture_t current_texture;
+texture_t press_texture;
+texture_t up_texture;
+texture_t down_texture;
+texture_t left_texture;
+texture_t right_texture;
 
 // Initializes variables.
 void texture_init(texture_t *t) {

@@ -27,4 +27,9 @@ bool texture_load_from_image(texture_t *t, const char *path);
 // #IMPORTANT. Global variables.
 // #IMPORTANT. You must define it on your .c file.
 // Scene textures.
-// extern texture_t button_sprite_sheet;
+extern texture_t current_texture;
+extern texture_t press_texture;
+extern texture_t up_texture;
+extern texture_t down_texture;
+extern texture_t left_texture;
+extern texture_t right_texture;

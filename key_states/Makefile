@@ -5,8 +5,8 @@ SOURCE_DIR = src
 BUILD_DIR = build
 
 CC_STD = c2x
-CC = gcc
-CC_WARNINGS = -Wall -Wextra -Wpedantic
+CC = clang
+CC_WARNINGS = -Wall -Werror -Wpedantic
 CC_FLAGS = $(CC_WARNINGS) -std=$(CC_STD) -I $(INCLUDE_DIR)
 CL_FLAGS = -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf
 

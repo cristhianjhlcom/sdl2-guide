@@ -10,7 +10,7 @@ int main(void) {
         exit(1);
     }
 
-    // texture_init(&button_sprite_sheet);
+    texture_init(&current_texture);
 
     if (!load_media()) {
         printf("Load media image failed %s\n", SDL_GetError());
@@ -29,10 +29,12 @@ int main(void) {
     // The core of any game application.
     while (game_state.is_running) {
         do_inputs(&event);
+        do_arrow_keys();
 
         render();
 
         // Blit here.
+        texture_render(&current_texture, 0, 0, NULL, 0.0, NULL, SDL_FLIP_NONE);
 
         present();
     }

@@ -57,13 +57,35 @@ bool init(void) {
 
 bool load_media(void) {
     // Load scene resources.
-    /*
-    if (!texture_load_from_image(&button_sprite_sheet,
-                                 "assets/graphics/button.png")) {
-        printf("Button graphics load failed.\n");
+    if (!texture_load_from_image(&press_texture,
+                                 "assets/graphics/press.png")) {
+        printf("Press graphics load failed.\n");
         return false;
     }
-    */
+
+    if (!texture_load_from_image(&up_texture,
+                                 "assets/graphics/up.png")) {
+        printf("Up graphics load failed.\n");
+        return false;
+    }
+
+    if (!texture_load_from_image(&down_texture,
+                                 "assets/graphics/down.png")) {
+        printf("Down graphics load failed.\n");
+        return false;
+    }
+
+    if (!texture_load_from_image(&left_texture,
+                                 "assets/graphics/left.png")) {
+        printf("Left graphics load failed.\n");
+        return false;
+    }
+
+    if (!texture_load_from_image(&right_texture,
+                                 "assets/graphics/right.png")) {
+        printf("Right graphics load failed.\n");
+        return false;
+    }
 
     return true;
 }
@@ -87,14 +109,18 @@ void present(void) {
 
 void cleanup(void) {
     // Free loaded images resources.
-    // texture_free(&button_sprite_sheet);
+    texture_free(&current_texture);
+    texture_free(&press_texture);
+    texture_free(&up_texture);
+    texture_free(&down_texture);
+    texture_free(&left_texture);
+    texture_free(&right_texture);
     // Destroy window.
     SDL_DestroyRenderer(game_state.renderer);
     SDL_DestroyWindow(game_state.window);
     game_state.renderer = NULL;
     game_state.window = NULL;
     // Quit SDL subsystems.
-    TTF_Quit();
     IMG_Quit();
     SDL_Quit();
 }
