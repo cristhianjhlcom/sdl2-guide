@@ -1,21 +1,24 @@
 DEBUG = 1
 
+# cp D:/SDL2-2.30.11/bin/*.dll build/
+
 INCLUDE_DIR = include
 SOURCE_DIR = src
 BUILD_DIR = build
+SDL_DIR = D:/SDL2-2.30.11
 
 CC_STD = c2x
-CC = clang
+CC = gcc
 CC_WARNINGS = -Wall -Werror -Wpedantic
-CC_FLAGS = $(CC_WARNINGS) -std=$(CC_STD) -I $(INCLUDE_DIR)
-CL_FLAGS = -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf
+CC_FLAGS = $(CC_WARNINGS) -std=$(CC_STD) -I $(INCLUDE_DIR) -I$(SDL_DIR)/include/SDL2
+CL_FLAGS = -L$(SDL_DIR)/lib -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf
 
 ifeq ($(DEBUG), 1)
     CC_FLAGS += -g -DDEBUG
-    OUTPUT = output
+    OUTPUT = output.exe
 else
     CC_FLAGS += -O2
-    OUTPUT = app
+    OUTPUT = app.exe
 endif
 
 CC_COMPILER = $(CC) $(CC_FLAGS)
@@ -23,7 +26,7 @@ CC_COMPILER = $(CC) $(CC_FLAGS)
 CC_SOURCES = $(wildcard $(SOURCE_DIR)/*.c)
 CC_OBJECTS = $(patsubst $(SOURCE_DIR)/%.c, $(BUILD_DIR)/%.o, $(CC_SOURCES))
 
-all: clean create build run
+all: create build run
 
 create:
 	@mkdir -p build
@@ -34,11 +37,6 @@ build: $(CC_OBJECTS)
 run:
 	./$(BUILD_DIR)/$(OUTPUT)
 
-install:
-	sudo apt-get update
-	sudo apt-get install libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev
-	sudo apt-get install bear
-
 clean:
 	rm -rf $(BUILD_DIR)/*
 
@@ -46,4 +44,3 @@ $(BUILD_DIR)/%.o: $(SOURCE_DIR)/%.c
 	$(CC_COMPILER) -c $< -o $@
 
 .PHONY: create build execute clean
-

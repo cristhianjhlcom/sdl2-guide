@@ -2,7 +2,7 @@
 
 game_state_t game_state;
 
-int main(void) {
+int main(int argc, char *argv[]) {
     memset(&game_state, 0, sizeof(game_state_t));
 
     if (!init()) {

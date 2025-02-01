@@ -10,6 +10,37 @@ void do_inputs(SDL_Event *e) {
             case SDL_QUIT:
                 game_state.is_running = false;
                 break;
+            case SDL_KEYDOWN:
+                switch (e->key.keysym.sym) {
+                    case SDLK_1:
+                        Mix_PlayChannel(-1, high, 0);
+                        break;
+                    case SDLK_2:
+                        Mix_PlayChannel(-1, medium, 0);
+                        break;
+                    case SDLK_3:
+                        Mix_PlayChannel(-1, low, 0);
+                        break;
+                    case SDLK_4:
+                        Mix_PlayChannel(-1, scratch, 0);
+                        break;
+                    case SDLK_9:
+                        if (Mix_PlayingMusic() == 0) {
+                            Mix_PlayMusic(music, -1);
+                        } else {
+                            if (Mix_PausedMusic() == 1) {
+                                Mix_ResumeMusic();
+                            } else {
+                                Mix_PauseMusic();
+                            }
+                        }
+                        break;
+                    case SDLK_0:
+                        Mix_HaltMusic();
+                        break;
+                    default:
+                        break;
+                }
         }
     }
 }

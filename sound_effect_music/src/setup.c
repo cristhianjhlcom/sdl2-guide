@@ -5,33 +5,15 @@ bool init(void) {
         printf("[warning] linear texture filtering not enabled.\n");
     }
 
-    if (!SDL_SetHint("SDL_AUDIODRIVER", "dsp")) {
-        printf("[warning] directsound not enabled.\n");
-    }
-
     // Initialize SDL.
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) {
         printf("Init SDL failed %s.\n", SDL_GetError());
         return false;
     }
 
-    SDL_Rect display_bounds;
-
-    if (SDL_GetDisplayBounds(0, &display_bounds) != 0) {
-        SDL_Log("Could not get display bounds %s.\n", SDL_GetError());
-        return false;
-    }
-
-    // int window_x = display_bounds.x + (display_bounds.w - SCREEN_WIDTH) / 2;
-    // int window_y = display_bounds.y + (display_bounds.h - SCREEN_HEIGHT) / 2;
-    int window_x = display_bounds.x + display_bounds.w;
-    int window_y = display_bounds.y + display_bounds.h;
-
-    printf("window x %d window y %d\n", window_x, window_y);
-
     // Create windows.
     game_state.window =
-        SDL_CreateWindow("Game", window_x, window_y, SCREEN_WIDTH,
+        SDL_CreateWindow("Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH,
                          SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
     if (game_state.window == NULL) {
         printf("Window creation failed %s.\n", SDL_GetError());

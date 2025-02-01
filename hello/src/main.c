@@ -1,19 +1,23 @@
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_error.h>
-#include <SDL2/SDL_events.h>
-#include <SDL2/SDL_pixels.h>
-#include <SDL2/SDL_rect.h>
-#include <SDL2/SDL_stdinc.h>
-#include <SDL2/SDL_surface.h>
-#include <SDL2/SDL_video.h>
+#include <SDL.h>
+#include <SDL_error.h>
+#include <SDL_events.h>
+#include <SDL_keycode.h>
+#include <SDL_pixels.h>
+#include <SDL_render.h>
+#include <SDL_stdinc.h>
+#include <SDL_timer.h>
+#include <SDL_video.h>
+
 #include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <time.h>
 
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 
-int main(void) {
+int main(int argc, char *argv[]) {
     // The window will be rendering to.
     SDL_Window *window = NULL;
 
@@ -26,22 +30,8 @@ int main(void) {
         exit(1);
     }
 
-    SDL_Rect display_bounds;
-
-    if (SDL_GetDisplayBounds(0, &display_bounds) != 0) {
-        SDL_Log("Could not get display bounds %s.\n", SDL_GetError());
-        exit(1);
-    }
-
-    // int window_x = display_bounds.x + (display_bounds.w - SCREEN_WIDTH) / 2;
-    // int window_y = display_bounds.y + (display_bounds.h - SCREEN_HEIGHT) / 2;
-    int window_x = display_bounds.x + display_bounds.w;
-    int window_y = display_bounds.y + display_bounds.h;
-
-    printf("window x %d window y %d\n", window_x, window_y);
-
     // Create windows.
-    window = SDL_CreateWindow("Game", window_x, window_y, SCREEN_WIDTH,
+    window = SDL_CreateWindow("Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH,
                               SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
     if (window == NULL) {
         printf("Window creation failed %s.\n", SDL_GetError());
