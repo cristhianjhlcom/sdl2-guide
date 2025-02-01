@@ -40,9 +40,9 @@ bool init(void) {
         return false;
     }
 
-    // Initialize SDL_Mizer
-    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
-        printf("SDL_Mixer initialization failed %s.\n", Mix_GetError());
+    // Initialize SDL_ttf.
+    if (TTF_Init() == -1) {
+        printf("SDL_ttf could not initialize SDL_ttf error %s.\n", TTF_GetError());
         return false;
     }
 
@@ -52,9 +52,18 @@ bool init(void) {
 
 bool load_media(void) {
     // Load scene resources.
+    // Load fonts.
+    font = TTF_OpenFont("assets/fonts/lazy.ttf", 28);
+    if (font == NULL) {
+        printf("Lazy font load failed SDL_ttf %s\n", TTF_GetError());
+        return false;
+    }
+
+    // Set text color as black.
+    SDL_Color text_color = { 0x0, 0x0, 0x0, 0xFF };
     // Load textures.
-    if (!texture_load_from_image(&time_text_texture, "assets/graphics/prompt.png")) {
-        printf("Press graphics load failed.\n");
+    if (!texture_load_from_rendered_text(&prompt_text_texture, "Press 'Enter' to reset start time.", text_color)) {
+        printf("Unable to render prompt texture!\n");
         return false;
     }
 
@@ -81,6 +90,7 @@ void present(void) {
 void cleanup(void) {
     // Free loaded images resources.
     texture_free(&time_text_texture);
+    texture_free(&prompt_text_texture);
     // Destroy window.
     SDL_DestroyRenderer(game_state.renderer);
     SDL_DestroyWindow(game_state.window);

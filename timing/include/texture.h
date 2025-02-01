@@ -19,9 +19,10 @@ void texture_set_alpha(texture_t *t, Uint8 alpha);
 #if defined(SDL_TTF_MAJOR_VERSION)
 bool texture_load_from_rendered_text(texture_t *t, const char *texture_text, SDL_Color text_color);
 #endif
-bool texture_load_from_image(texture_t *t, const char *path);
-
+bool texture_load_from_file(texture_t *t, const char *path);
 // #IMPORTANT. Global variables.
 // #IMPORTANT. You must define it on your .c file.
 // Scene textures.
+extern TTF_Font *font;
 extern texture_t time_text_texture;
+extern texture_t prompt_text_texture;

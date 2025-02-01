@@ -1,6 +1,6 @@
 #include "common.h"
 
-void do_inputs(SDL_Event *e) {
+void do_inputs(SDL_Event *e, Uint32 *start_time, char time_text[]) {
     // Event loop.
     // Handle events on queue.
     // Keep proccesing the event queue until it is empty.
@@ -10,10 +10,16 @@ void do_inputs(SDL_Event *e) {
             case SDL_QUIT:
                 game_state.is_running = false;
                 break;
+            case SDL_KEYDOWN:
+                if (e->key.keysym.sym == SDLK_RETURN) {
+                    *start_time = SDL_GetTicks();
+                }
             default:
                 break;
         }
     }
+
+    snprintf(time_text, 50, "Milliseconds since start time %02d", SDL_GetTicks() - *start_time);
 }
 
 void do_arrow_keys(void) {
