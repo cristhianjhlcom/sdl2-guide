@@ -1,0 +1,102 @@
+[
+  {
+    "arguments": [
+      "/usr/lib/llvm-11/bin/clang",
+      "-Wall",
+      "-Werror",
+      "-Wpedantic",
+      "-std=c2x",
+      "-I",
+      "include",
+      "-g",
+      "-DDEBUG",
+      "-c",
+      "src/inputs.c",
+      "-o",
+      "build/inputs.o"
+    ],
+    "directory": "/home/cristhianjhl/learn/c/games/basics/sound_effect_music",
+    "file": "/home/cristhianjhl/learn/c/games/basics/sound_effect_music/src/inputs.c",
+    "output": "/home/cristhianjhl/learn/c/games/basics/sound_effect_music/build/inputs.o"
+  },
+  {
+    "arguments": [
+      "/usr/lib/llvm-11/bin/clang",
+      "-Wall",
+      "-Werror",
+      "-Wpedantic",
+      "-std=c2x",
+      "-I",
+      "include",
+      "-g",
+      "-DDEBUG",
+      "-c",
+      "src/main.c",
+      "-o",
+      "build/main.o"
+    ],
+    "directory": "/home/cristhianjhl/learn/c/games/basics/sound_effect_music",
+    "file": "/home/cristhianjhl/learn/c/games/basics/sound_effect_music/src/main.c",
+    "output": "/home/cristhianjhl/learn/c/games/basics/sound_effect_music/build/main.o"
+  },
+  {
+    "arguments": [
+      "/usr/lib/llvm-11/bin/clang",
+      "-Wall",
+      "-Werror",
+      "-Wpedantic",
+      "-std=c2x",
+      "-I",
+      "include",
+      "-g",
+      "-DDEBUG",
+      "-c",
+      "src/setup.c",
+      "-o",
+      "build/setup.o"
+    ],
+    "directory": "/home/cristhianjhl/learn/c/games/basics/sound_effect_music",
+    "file": "/home/cristhianjhl/learn/c/games/basics/sound_effect_music/src/setup.c",
+    "output": "/home/cristhianjhl/learn/c/games/basics/sound_effect_music/build/setup.o"
+  },
+  {
+    "arguments": [
+      "/usr/lib/llvm-11/bin/clang",
+      "-Wall",
+      "-Werror",
+      "-Wpedantic",
+      "-std=c2x",
+      "-I",
+      "include",
+      "-g",
+      "-DDEBUG",
+      "-c",
+      "src/sounds.c",
+      "-o",
+      "build/sounds.o"
+    ],
+    "directory": "/home/cristhianjhl/learn/c/games/basics/sound_effect_music",
+    "file": "/home/cristhianjhl/learn/c/games/basics/sound_effect_music/src/sounds.c",
+    "output": "/home/cristhianjhl/learn/c/games/basics/sound_effect_music/build/sounds.o"
+  },
+  {
+    "arguments": [
+      "/usr/lib/llvm-11/bin/clang",
+      "-Wall",
+      "-Werror",
+      "-Wpedantic",
+      "-std=c2x",
+      "-I",
+      "include",
+      "-g",
+      "-DDEBUG",
+      "-c",
+      "src/texture.c",
+      "-o",
+      "build/texture.o"
+    ],
+    "directory": "/home/cristhianjhl/learn/c/games/basics/sound_effect_music",
+    "file": "/home/cristhianjhl/learn/c/games/basics/sound_effect_music/src/texture.c",
+    "output": "/home/cristhianjhl/learn/c/games/basics/sound_effect_music/build/texture.o"
+  }
+]
