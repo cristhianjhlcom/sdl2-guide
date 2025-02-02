@@ -2,6 +2,7 @@
 
 timer_t timer;
 timer_t fps_timer;
+timer_t cap_timer;
 
 // Functions definitions.
 void timer_init(timer_t *t) {

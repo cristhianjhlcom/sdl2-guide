@@ -25,7 +25,7 @@ bool init(void) {
         return false;
     }
 
-    game_state.renderer = SDL_CreateRenderer(game_state.window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    game_state.renderer = SDL_CreateRenderer(game_state.window, -1, SDL_RENDERER_ACCELERATED);
     if (game_state.renderer == NULL) {
         printf("Renderer creation failed %s.\n", SDL_GetError());
         return false;

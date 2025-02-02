@@ -28,3 +28,4 @@ bool timer_is_paused(timer_t *t);
 
 extern timer_t timer;
 extern timer_t fps_timer;
+extern timer_t cap_timer;

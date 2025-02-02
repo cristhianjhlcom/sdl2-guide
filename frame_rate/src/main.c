@@ -14,6 +14,7 @@ int main(int argc, char *argv[]) {
     texture_init(&fps_text_texture);
     // The frame per second timer.
     timer_init(&fps_timer);
+    timer_init(&cap_timer);
     timer_init(&timer);
 
     if (!load_media()) {
@@ -39,6 +40,8 @@ int main(int argc, char *argv[]) {
     // This is the game loop.
     // The core of any game application.
     while (game_state.is_running) {
+        // Start cap timer.
+        timer_start(&cap_timer);
         // Calculate and correct fps.
         float avg_fps = counted_frames / (timer_get_ticks(&fps_timer) / 1000.f);
         if (avg_fps > 2000000) {
@@ -46,8 +49,9 @@ int main(int argc, char *argv[]) {
         }
 
         do_inputs(&event, time_text);
-        snprintf(time_text, 50, "Average frames per seconds %.2f", avg_fps);
-
+        // Set text to be rendered.
+        snprintf(time_text, 50, "Average frames per second (with cap) %.2f", avg_fps);
+        // Render text.
         if (!texture_load_from_rendered_text(&fps_text_texture, time_text, text_color)) {
             printf("Unable to render time texture!\n");
             exit(1);
@@ -59,6 +63,12 @@ int main(int argc, char *argv[]) {
         present();
 
         ++counted_frames;
+        // If frame finished early.
+        int frame_ticks = timer_get_ticks(&cap_timer);
+        if (frame_ticks < SCREEN_TICKS_PER_FRAME) {
+            // Wait remaining time.
+            SDL_Delay(SCREEN_TICKS_PER_FRAME - frame_ticks);
+        }
     }
 
     cleanup();
