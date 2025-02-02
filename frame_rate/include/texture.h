@@ -25,4 +25,4 @@ bool texture_load_from_file(texture_t *t, const char *path);
 // Scene textures.
 extern TTF_Font *font;
 extern texture_t time_text_texture;
-extern texture_t prompt_text_texture;
+extern texture_t fps_text_texture;

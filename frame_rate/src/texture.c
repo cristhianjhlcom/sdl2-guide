@@ -8,7 +8,7 @@
 // other modules.
 TTF_Font *font = NULL;
 texture_t time_text_texture;
-texture_t prompt_text_texture;
+texture_t fps_text_texture;
 
 // Initializes variables.
 void texture_init(texture_t *t) {

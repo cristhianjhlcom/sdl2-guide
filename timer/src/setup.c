@@ -62,8 +62,13 @@ bool load_media(void) {
     // Set text color as black.
     SDL_Color text_color = { 0x0, 0x0, 0x0, 0xFF };
     // Load textures.
-    if (!texture_load_from_rendered_text(&prompt_text_texture, "Press 'Enter' to reset start time.", text_color)) {
-        printf("Unable to render prompt texture!\n");
+    if (!texture_load_from_rendered_text(&start_prompt_text_texture, "Press 'S' to start or stop the timer.", text_color)) {
+        printf("Unable to render start prompt texture!\n");
+        return false;
+    }
+
+    if (!texture_load_from_rendered_text(&pause_prompt_text_texture, "Press 'P' to pause or unpause the timer.", text_color)) {
+        printf("Unable to render pause prompt texture!\n");
         return false;
     }
 
@@ -90,7 +95,8 @@ void present(void) {
 void cleanup(void) {
     // Free loaded images resources.
     texture_free(&time_text_texture);
-    texture_free(&prompt_text_texture);
+    texture_free(&start_prompt_text_texture);
+    texture_free(&pause_prompt_text_texture);
     // Destroy window.
     SDL_DestroyRenderer(game_state.renderer);
     SDL_DestroyWindow(game_state.window);

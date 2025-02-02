@@ -28,3 +28,4 @@
 #include "inputs.h"
 #include "setup.h"
 #include "texture.h"
+#include "timer.h"
