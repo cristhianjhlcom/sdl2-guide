@@ -51,9 +51,16 @@ bool init(void) {
 bool load_media(void) {
     // Load scene resources.
     // Load fonts.
+    /*
     font = TTF_OpenFont("assets/fonts/lazy.ttf", 28);
     if (font == NULL) {
         printf("Lazy font load failed SDL_ttf %s\n", TTF_GetError());
+        return false;
+    }
+    */
+
+    if (!texture_load_from_file(&dot_texture, "assets/graphics/dot.bmp")) {
+        printf("Cannot load the dot texture file %s.\n", SDL_GetError());
         return false;
     }
 
@@ -79,7 +86,7 @@ void present(void) {
 
 void cleanup(void) {
     // Free loaded images resources.
-    // texture_free(&time_text_texture);
+    texture_free(&dot_texture);
     // Destroy window.
     SDL_DestroyRenderer(game_state.renderer);
     SDL_DestroyWindow(game_state.window);

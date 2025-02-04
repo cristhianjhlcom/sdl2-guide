@@ -61,6 +61,11 @@ Uint32 timer_get_ticks(timer_t *t) {
 bool timer_is_started(timer_t *t) {
     return t->started;
 }
+
 bool timer_is_paused(timer_t *t) {
     return t->paused;
 }
+
+timer_t timer;
+timer_t fps_timer;
+timer_t cap_timer;

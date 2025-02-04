@@ -1,10 +1,10 @@
 #include "common.h"
 
-void do_inputs(SDL_Event *e) {
+void do_inputs(SDL_Event *e, dot_t *d) {
     // Event loop.
     // Handle events on queue.
     // Keep proccesing the event queue until it is empty.
-    while (SDL_PollEvent(e)) {
+    while (SDL_PollEvent(e) != 0) {
         switch (e->type) {
             // User requests quit the game.
             case SDL_QUIT:
@@ -13,6 +13,8 @@ void do_inputs(SDL_Event *e) {
             default:
                 break;
         }
+
+        dot_handle_event(d, e);
     }
 }
 

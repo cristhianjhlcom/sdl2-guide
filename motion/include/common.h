@@ -23,8 +23,10 @@
 #include <time.h>
 
 // Custom headers.
+// El orden en como se llama, importa.
 #include "constants.h"
 #include "game_state.h"
+#include "dot_entity.h"
 #include "inputs.h"
 #include "setup.h"
 #include "texture.h"

@@ -12,7 +12,7 @@ typedef struct Texture {
 // Functions declarations.
 void texture_init(texture_t *t);
 void texture_free(texture_t *t);
-void texture_render(texture_t *t, int x, int y, SDL_Rect *clip, double angle, SDL_Point *center, SDL_RendererFlip flip);
+void texture_render(texture_t *t, int x, int y, SDL_Rect *clip);
 void texture_set_color(texture_t *t, Uint8 red, Uint8 green, Uint8 blue);
 void texture_set_blend_mode(texture_t *t, SDL_BlendMode blending);
 void texture_set_alpha(texture_t *t, Uint8 alpha);
@@ -24,4 +24,4 @@ bool texture_load_from_file(texture_t *t, const char *path);
 // #IMPORTANT. You must define it on your .c file.
 // Scene textures.
 extern TTF_Font *font;
-// extern texture_t time_text_texture;
+extern texture_t dot_texture;

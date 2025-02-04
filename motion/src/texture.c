@@ -7,7 +7,7 @@
 // Now we have to define on our texture.c this make the variable available on
 // other modules.
 TTF_Font *font = NULL;
-// texture_t time_text_texture;
+texture_t dot_texture;
 
 // Initializes variables.
 void texture_init(texture_t *t) {
@@ -30,7 +30,7 @@ void texture_free(texture_t *t) {
 }
 
 // Renders texture at given point.
-void texture_render(texture_t *t, int x, int y, SDL_Rect *clip, double angle, SDL_Point *center, SDL_RendererFlip flip) {
+void texture_render(texture_t *t, int x, int y, SDL_Rect *clip) {
     // Set rendering space and render to screen.
     SDL_Rect dest;
     dest.w = t->w;
@@ -45,7 +45,14 @@ void texture_render(texture_t *t, int x, int y, SDL_Rect *clip, double angle, SD
     }
 
     // Render to screen.
-    SDL_RenderCopyEx(game_state.renderer, t->texture, clip, &dest, angle, center, flip);
+    SDL_RenderCopyEx(
+        game_state.renderer,
+        t->texture,
+        clip,
+        &dest,
+        0.0,
+        NULL,
+        SDL_FLIP_NONE);
 }
 
 // Set blending.
