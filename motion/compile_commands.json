@@ -1,102 +1,32 @@
 [
-  {
-    "arguments": [
-      "/usr/lib/llvm-11/bin/clang",
-      "-Wall",
-      "-Werror",
-      "-Wpedantic",
-      "-std=c2x",
-      "-I",
-      "include",
-      "-g",
-      "-DDEBUG",
-      "-c",
-      "src/inputs.c",
-      "-o",
-      "build/inputs.o"
-    ],
-    "directory": "/home/cristhianjhl/learn/c/games/basics/sound_effect_music",
-    "file": "/home/cristhianjhl/learn/c/games/basics/sound_effect_music/src/inputs.c",
-    "output": "/home/cristhianjhl/learn/c/games/basics/sound_effect_music/build/inputs.o"
-  },
-  {
-    "arguments": [
-      "/usr/lib/llvm-11/bin/clang",
-      "-Wall",
-      "-Werror",
-      "-Wpedantic",
-      "-std=c2x",
-      "-I",
-      "include",
-      "-g",
-      "-DDEBUG",
-      "-c",
-      "src/main.c",
-      "-o",
-      "build/main.o"
-    ],
-    "directory": "/home/cristhianjhl/learn/c/games/basics/sound_effect_music",
-    "file": "/home/cristhianjhl/learn/c/games/basics/sound_effect_music/src/main.c",
-    "output": "/home/cristhianjhl/learn/c/games/basics/sound_effect_music/build/main.o"
-  },
-  {
-    "arguments": [
-      "/usr/lib/llvm-11/bin/clang",
-      "-Wall",
-      "-Werror",
-      "-Wpedantic",
-      "-std=c2x",
-      "-I",
-      "include",
-      "-g",
-      "-DDEBUG",
-      "-c",
-      "src/setup.c",
-      "-o",
-      "build/setup.o"
-    ],
-    "directory": "/home/cristhianjhl/learn/c/games/basics/sound_effect_music",
-    "file": "/home/cristhianjhl/learn/c/games/basics/sound_effect_music/src/setup.c",
-    "output": "/home/cristhianjhl/learn/c/games/basics/sound_effect_music/build/setup.o"
-  },
-  {
-    "arguments": [
-      "/usr/lib/llvm-11/bin/clang",
-      "-Wall",
-      "-Werror",
-      "-Wpedantic",
-      "-std=c2x",
-      "-I",
-      "include",
-      "-g",
-      "-DDEBUG",
-      "-c",
-      "src/sounds.c",
-      "-o",
-      "build/sounds.o"
-    ],
-    "directory": "/home/cristhianjhl/learn/c/games/basics/sound_effect_music",
-    "file": "/home/cristhianjhl/learn/c/games/basics/sound_effect_music/src/sounds.c",
-    "output": "/home/cristhianjhl/learn/c/games/basics/sound_effect_music/build/sounds.o"
-  },
-  {
-    "arguments": [
-      "/usr/lib/llvm-11/bin/clang",
-      "-Wall",
-      "-Werror",
-      "-Wpedantic",
-      "-std=c2x",
-      "-I",
-      "include",
-      "-g",
-      "-DDEBUG",
-      "-c",
-      "src/texture.c",
-      "-o",
-      "build/texture.o"
-    ],
-    "directory": "/home/cristhianjhl/learn/c/games/basics/sound_effect_music",
-    "file": "/home/cristhianjhl/learn/c/games/basics/sound_effect_music/src/texture.c",
-    "output": "/home/cristhianjhl/learn/c/games/basics/sound_effect_music/build/texture.o"
-  }
+{
+  "directory": "D:/code/c/SDL2_guide/motion",
+  "command": "D:\\mingw64\\bin\\gcc.exe -ID:/code/c/SDL2_guide/motion/include -ID:/SDL2-2.30.11/include/SDL2  -g -DDEBUG -Wall -Werror -Wpedantic -g -std=gnu2x -Wall -Werror -Wpedantic -o CMakeFiles\\output.dir\\src\\inputs.c.obj -c D:\\code\\c\\SDL2_guide\\motion\\src\\inputs.c",
+  "file": "D:\\code\\c\\SDL2_guide\\motion\\src\\inputs.c",
+  "output": "CMakeFiles\\output.dir\\src\\inputs.c.obj"
+},
+{
+  "directory": "D:/code/c/SDL2_guide/motion",
+  "command": "D:\\mingw64\\bin\\gcc.exe -ID:/code/c/SDL2_guide/motion/include -ID:/SDL2-2.30.11/include/SDL2  -g -DDEBUG -Wall -Werror -Wpedantic -g -std=gnu2x -Wall -Werror -Wpedantic -o CMakeFiles\\output.dir\\src\\main.c.obj -c D:\\code\\c\\SDL2_guide\\motion\\src\\main.c",
+  "file": "D:\\code\\c\\SDL2_guide\\motion\\src\\main.c",
+  "output": "CMakeFiles\\output.dir\\src\\main.c.obj"
+},
+{
+  "directory": "D:/code/c/SDL2_guide/motion",
+  "command": "D:\\mingw64\\bin\\gcc.exe -ID:/code/c/SDL2_guide/motion/include -ID:/SDL2-2.30.11/include/SDL2  -g -DDEBUG -Wall -Werror -Wpedantic -g -std=gnu2x -Wall -Werror -Wpedantic -o CMakeFiles\\output.dir\\src\\setup.c.obj -c D:\\code\\c\\SDL2_guide\\motion\\src\\setup.c",
+  "file": "D:\\code\\c\\SDL2_guide\\motion\\src\\setup.c",
+  "output": "CMakeFiles\\output.dir\\src\\setup.c.obj"
+},
+{
+  "directory": "D:/code/c/SDL2_guide/motion",
+  "command": "D:\\mingw64\\bin\\gcc.exe -ID:/code/c/SDL2_guide/motion/include -ID:/SDL2-2.30.11/include/SDL2  -g -DDEBUG -Wall -Werror -Wpedantic -g -std=gnu2x -Wall -Werror -Wpedantic -o CMakeFiles\\output.dir\\src\\texture.c.obj -c D:\\code\\c\\SDL2_guide\\motion\\src\\texture.c",
+  "file": "D:\\code\\c\\SDL2_guide\\motion\\src\\texture.c",
+  "output": "CMakeFiles\\output.dir\\src\\texture.c.obj"
+},
+{
+  "directory": "D:/code/c/SDL2_guide/motion",
+  "command": "D:\\mingw64\\bin\\gcc.exe -ID:/code/c/SDL2_guide/motion/include -ID:/SDL2-2.30.11/include/SDL2  -g -DDEBUG -Wall -Werror -Wpedantic -g -std=gnu2x -Wall -Werror -Wpedantic -o CMakeFiles\\output.dir\\src\\timer.c.obj -c D:\\code\\c\\SDL2_guide\\motion\\src\\timer.c",
+  "file": "D:\\code\\c\\SDL2_guide\\motion\\src\\timer.c",
+  "output": "CMakeFiles\\output.dir\\src\\timer.c.obj"
+}
 ]

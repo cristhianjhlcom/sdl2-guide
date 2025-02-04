@@ -18,8 +18,7 @@ bool init(void) {
         SDL_WINDOWPOS_CENTERED,
         SCREEN_WIDTH,
         SCREEN_HEIGHT,
-        SDL_WINDOW_SHOWN
-    );
+        SDL_WINDOW_SHOWN);
     if (game_state.window == NULL) {
         printf("Window creation failed %s.\n", SDL_GetError());
         return false;
