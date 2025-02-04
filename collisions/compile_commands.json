@@ -1,0 +1,38 @@
+[
+{
+  "directory": "D:/code/c/SDL2_guide/collisions",
+  "command": "D:\\mingw64\\bin\\gcc.exe -ID:/code/c/SDL2_guide/collisions/include -ID:/SDL2-2.30.11/include/SDL2  -g -DDEBUG -Wall -Werror -Wpedantic -g -std=gnu2x -Wall -Werror -Wpedantic -o CMakeFiles\\output.dir\\src\\dot_entity.c.obj -c D:\\code\\c\\SDL2_guide\\collisions\\src\\dot_entity.c",
+  "file": "D:\\code\\c\\SDL2_guide\\collisions\\src\\dot_entity.c",
+  "output": "CMakeFiles\\output.dir\\src\\dot_entity.c.obj"
+},
+{
+  "directory": "D:/code/c/SDL2_guide/collisions",
+  "command": "D:\\mingw64\\bin\\gcc.exe -ID:/code/c/SDL2_guide/collisions/include -ID:/SDL2-2.30.11/include/SDL2  -g -DDEBUG -Wall -Werror -Wpedantic -g -std=gnu2x -Wall -Werror -Wpedantic -o CMakeFiles\\output.dir\\src\\inputs.c.obj -c D:\\code\\c\\SDL2_guide\\collisions\\src\\inputs.c",
+  "file": "D:\\code\\c\\SDL2_guide\\collisions\\src\\inputs.c",
+  "output": "CMakeFiles\\output.dir\\src\\inputs.c.obj"
+},
+{
+  "directory": "D:/code/c/SDL2_guide/collisions",
+  "command": "D:\\mingw64\\bin\\gcc.exe -ID:/code/c/SDL2_guide/collisions/include -ID:/SDL2-2.30.11/include/SDL2  -g -DDEBUG -Wall -Werror -Wpedantic -g -std=gnu2x -Wall -Werror -Wpedantic -o CMakeFiles\\output.dir\\src\\main.c.obj -c D:\\code\\c\\SDL2_guide\\collisions\\src\\main.c",
+  "file": "D:\\code\\c\\SDL2_guide\\collisions\\src\\main.c",
+  "output": "CMakeFiles\\output.dir\\src\\main.c.obj"
+},
+{
+  "directory": "D:/code/c/SDL2_guide/collisions",
+  "command": "D:\\mingw64\\bin\\gcc.exe -ID:/code/c/SDL2_guide/collisions/include -ID:/SDL2-2.30.11/include/SDL2  -g -DDEBUG -Wall -Werror -Wpedantic -g -std=gnu2x -Wall -Werror -Wpedantic -o CMakeFiles\\output.dir\\src\\setup.c.obj -c D:\\code\\c\\SDL2_guide\\collisions\\src\\setup.c",
+  "file": "D:\\code\\c\\SDL2_guide\\collisions\\src\\setup.c",
+  "output": "CMakeFiles\\output.dir\\src\\setup.c.obj"
+},
+{
+  "directory": "D:/code/c/SDL2_guide/collisions",
+  "command": "D:\\mingw64\\bin\\gcc.exe -ID:/code/c/SDL2_guide/collisions/include -ID:/SDL2-2.30.11/include/SDL2  -g -DDEBUG -Wall -Werror -Wpedantic -g -std=gnu2x -Wall -Werror -Wpedantic -o CMakeFiles\\output.dir\\src\\texture.c.obj -c D:\\code\\c\\SDL2_guide\\collisions\\src\\texture.c",
+  "file": "D:\\code\\c\\SDL2_guide\\collisions\\src\\texture.c",
+  "output": "CMakeFiles\\output.dir\\src\\texture.c.obj"
+},
+{
+  "directory": "D:/code/c/SDL2_guide/collisions",
+  "command": "D:\\mingw64\\bin\\gcc.exe -ID:/code/c/SDL2_guide/collisions/include -ID:/SDL2-2.30.11/include/SDL2  -g -DDEBUG -Wall -Werror -Wpedantic -g -std=gnu2x -Wall -Werror -Wpedantic -o CMakeFiles\\output.dir\\src\\timer.c.obj -c D:\\code\\c\\SDL2_guide\\collisions\\src\\timer.c",
+  "file": "D:\\code\\c\\SDL2_guide\\collisions\\src\\timer.c",
+  "output": "CMakeFiles\\output.dir\\src\\timer.c.obj"
+}
+]
