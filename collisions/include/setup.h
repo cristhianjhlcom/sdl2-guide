@@ -6,6 +6,8 @@
 bool init(void);
 // Load medias resources.
 bool load_media(void);
+// Box collision detector.
+bool check_collision(SDL_Rect a, SDL_Rect b);
 // Clean and render main screen.
 void render(void);
 // Present and update the screen.

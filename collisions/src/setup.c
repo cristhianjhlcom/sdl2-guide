@@ -67,6 +67,50 @@ bool load_media(void) {
     return true;
 }
 
+bool check_collision(SDL_Rect a, SDL_Rect b) {
+    // The sides of rectangle.
+    int left_a, left_b;
+    int right_a, right_b;
+    int top_a, top_b;
+    int bottom_a, bottom_b;
+
+    // Here is where the collision detection happens.
+    // This calculate the top/bottom and left/right of each collision boxes.
+    // Calculate the sides of rect A.
+    left_a = a.x;
+    right_a = a.x + a.w;
+    top_a = a.y;
+    bottom_a = a.y + a.h;
+
+    // Calculate the sides of rect B.
+    left_b = b.x;
+    right_b = b.x + b.w;
+    top_b = b.y;
+    bottom_b = b.y + b.h;
+
+    // Here is where we do our separation axis test.
+    // - Check top/bottom of the boxes. Are they separated along they 'y' axis.
+    // - Check left/right. Are they separated on the 'x' axis.
+    // On any separation and no collisions return false.
+    // Otherside, the collision happens return true.
+    // ----
+    // If any of the sides from 'A' are outside of 'B'.
+    if (bottom_a <= top_b) {
+        return false;
+    }
+    if (top_a >= bottom_b) {
+        return false;
+    }
+    if (right_a <= left_b) {
+        return false;
+    }
+    if (left_a >= right_b) {
+        return false;
+    }
+    // None of the sides from 'A' are outside 'B'.
+    return true;
+}
+
 void render(void) {
     // Set clearing white color on every frame.
     // Instead of set once on the init function.

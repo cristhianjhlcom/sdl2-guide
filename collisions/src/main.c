@@ -17,8 +17,6 @@ int main(int argc, char *argv[]) {
     timer_init(&timer);
     // Initialize the dot texture.
     texture_init(&dot_texture);
-    // The dot that will be moving around the screen.
-    dot_init(&dot_entity);
 
     if (!load_media()) {
         printf("Load media image failed %s\n", SDL_GetError());
@@ -32,6 +30,14 @@ int main(int argc, char *argv[]) {
     // - Mouse motion. (SDL_MouseMotionEvent)
     // - Joy button press. (SDL_JoyButtonEvent)
     SDL_Event event;
+    // The dot that will be moving around the screen.
+    dot_init(&dot_entity);
+    // Set the wall.
+    SDL_Rect wall;
+    wall.x = 300;
+    wall.y = 40;
+    wall.w = 40;
+    wall.h = 400;
 
     // Start counting frames per second.
     int counted_frames = 0;
@@ -49,9 +55,13 @@ int main(int argc, char *argv[]) {
             avg_fps = 0.0;
         }
         do_inputs(&event, &dot_entity);
-        dot_move(&dot_entity);
+        dot_move(&dot_entity, wall);
         render();
         // Blit here.
+        // Render Wall.
+        SDL_SetRenderDrawColor(game_state.renderer, 0x00, 0x00, 0x00, 0xFF);
+        SDL_RenderDrawRect(game_state.renderer, &wall);
+        // Render Dot.
         dot_render(&dot_entity);
         // texture_render(&fps_text_texture, 0, 0, NULL, 0.0, NULL, SDL_FLIP_NONE);
         present();
